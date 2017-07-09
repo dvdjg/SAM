@@ -1,0 +1,2375 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSpy v2008 sp1 (http://www.altova.com) by Dave (Cab) -->
+<?xml-stylesheet type="text/xsl" href="SAM_declaration.xsl"?>
+<declaration version="0.1" name="SAM" namespace="SAM_Declaration">
+  <define name="MAX_NOMBRE_PUESTO">12</define>
+  <define name="MAX_NOMBRE_ABONADO">12</define>
+  <define name="MAX_NOMBRE_BATERIA">30</define>
+  <define name="MAX_NOMBRE_DESCRIPTIVO">40</define>
+  <define name="NMAX_PUESTOS">256</define>
+  <define name="NMAX_GATEWAYS">50</define>
+  <define name="NMAX_NOMBRE_FICHERO">48</define>
+  <define name="NMAX_NOMBRE_CONFIG">21</define>
+  <define name="NMAX_VERSION_CONFIG">6</define>
+  <define name="NMAX_BYTES_BLOQUE">1024</define>
+  <define name="NMAX_TAM_TABLA">1000</define>
+  <define name="NMAX_NOMBRE_TABLA">25</define>
+  <define name="NMAX_NOMBRE_PROCESO">64</define>
+  <define name="LNG_PREF_EST">5</define>
+  <define name="LNG_NOM_ABON_EST">20</define>
+  <define name="N_MAX_DIG_COD">20</define>
+  <define name="NTITFZMU">32</define>
+  <define name="NUM_ENLACES_GW">32</define>
+  <define name="LMAXMENSSIP">2000<comment>Longitud máxima de mensajes SIP</comment></define>
+  <define name="NMAX_CARAC_CAUSA">100<comment>mensaje de sectorización</comment></define>
+  <define name="NMAX_PARAMETRO">20<comment>Longitud máxima de un parámetro</comment></define>
+  <define name="MAX_NOMBRE_INFORME">12</define>
+  <define name="MAX_NOMBRE_CENTRO">20</define>
+  <define name="MAX_NOMBRE_BP">12</define>
+  <define name="MAX_NOMBRE_MEDIDA">20</define>
+  <define name="MAX_BUCLES_POSICION">6</define>
+  <define name="MAX_CANALES_INTERFAZ">3</define>
+  <define name="MAX_MEDIDAS_CANAL_BUCLE">9</define>
+  <define name="MAX_MEDIDAS_RED">2</define>
+  <define name="NMAX_ESTADO">3</define>
+  <table name="T_PUESTOS">
+    <item>config_sdcxxi_hw.txt</item>
+  </table>
+  <table name="T_GATEWAYS">
+    <item>config_sdcxxi_hw.txt</item>
+  </table>
+  <table name="T_ENL">
+    <item>config_sdcxxi_hw.txt</item>
+  </table>
+  <table name="T_CENT">
+    <item>config_sdcxxi_log.txt</item>
+  </table>
+  <table name="T_ABON">
+    <item>config_sdcxxi_log_sect_a.txt</item>
+    <item>config_sdcxxi_log_sect_b.txt</item>
+  </table>
+  <table name="T_EMPL">
+    <item>config_sdcxxi_log.txt</item>
+  </table>
+  <table name="T_FREC">
+    <item>config_sdcxxi_log.txt</item>
+  </table>
+  <!--
+  <table name="">
+    <item></item>
+  </table>
+  -->
+  <enum name="E_TIP_MSG" type="uint32" chars="4">
+    <item name="PETI">
+      <macro ref="CHARTOLONG">'P','E','T','I'</macro>
+    </item>
+    <item name="RESP">
+      <macro ref="CHARTOLONG">'R','E','S','P'</macro>
+    </item>
+    <item name="NOTIF">
+      <macro ref="CHARTOLONG">'N','O','T','I'</macro>
+    </item>
+  </enum>
+  <enum name="E_ID_MSG" type="uint32" chars="4">
+    <item name="M_PRESENCIA">
+      <macro ref="CHARTOLONG">'P','R','E','S'</macro>
+    </item>
+    <item name="M_FICH_CONFIG">
+      <macro ref="CHARTOLONG">'F','I','C','O'</macro>
+    </item>
+    <item name="M_INF_FICH_CONFIG">
+      <macro ref="CHARTOLONG">'I','N','C','O'</macro>
+    </item>
+    <item name="M_ARRANQUE">
+      <macro ref="CHARTOLONG">'A','R','R','A'</macro>
+    </item>
+    <item name="M_CONFIG_VALIDADA">
+      <macro ref="CHARTOLONG">'C','N','V','L'</macro>
+    </item>
+    <item name="M_ENVIA_TABLA">
+      <macro ref="CHARTOLONG">'E','N','T','B'</macro>
+    </item>
+    <item name="M_SECTORIZA">
+      <macro ref="CHARTOLONG">'S','E','C','T'</macro>
+    </item>
+    <item name="M_DATETIME_SG">
+      <macro ref="CHARTOLONG">'D','T','T','M'</macro>
+    </item>
+    <comment anchor="position">Mensajes de estadísticas</comment>
+    <item name="M_ESTADISTICAS_TF">
+      <comment>RRG 31/03/2008</comment>
+      <macro ref="CHARTOLONG">'E','S','T','F'</macro>
+    </item>
+    <item name="M_ESTADISTICAS_RD">
+      <comment>RRG 31/03/2008 // Información de sectorizacion para estadisticas</comment>
+      <macro ref="CHARTOLONG">'E','S','R','D'</macro>
+    </item>
+    <item name="M_CONFIG_IMPLANTADA">
+      <comment>RRG 09/04/2008 ; Información de fichero de config para estadísticas</comment>
+      <macro ref="CHARTOLONG">'C','O','I','M'</macro>
+    </item>
+    <item name="M_SALIR_APLICACION">
+      <comment>RRG 16/04/2009</comment>
+      <macro ref="CHARTOLONG">'S','A','A','P'</macro>
+    </item>
+    <item name="M_COMENZAR_APLICACION">
+      <comment>RRG 16/04/2009</comment>
+      <macro ref="CHARTOLONG">'C','O','A','P'</macro>
+    </item>
+    <item name="M_ESTADO_CONFIG">
+      <comment>Mensaje de estado de configuraciones desde TMCS a Estadísticas</comment>
+      <macro ref="CHARTOLONG">'E','S','C','N'</macro>
+    </item>
+    <item name="M_ENLACE_SACTA">
+      <comment>Subestructura de mensaje de información de estado del enlace con SACTA</comment>
+      <macro ref="CHARTOLONG">'E','N','S','A'</macro>
+    </item>
+    <item name="M_INICIO_SESION">
+      <comment>Para solicitar ficheros al TMCS</comment>
+      <macro ref="CHARTOLONG">'I','N','S','E'</macro>
+    </item>
+    <item name="M_PRES_SAM">
+      <comment>Presencias del SAM</comment>
+      <macro ref="CHARTOLONG">'P','S','A','M'</macro>
+    </item>
+    <item name="M_ACK_FICHERO">
+      <comment>ACK del fichero de configuracióon</comment>
+      <macro ref="CHARTOLONG">'S','A','C','K'</macro>
+    </item>
+    <item name="M_BATERIA_CANCELADA">
+      <comment>La ejecucion de la bateria de pruebas se ha cancelado</comment>
+      <macro ref="CHARTOLONG">'S','B','P','C'</macro>
+    </item>
+    <item name="M_AUDIO_SAM_POSICION">
+      <comment>SAM: Medidas de audio en posiciones</comment>
+      <macro ref="CHARTOLONG">'M','A','U','P'</macro>
+    </item>
+    <item name="M_AUDIO_SAM_INTERFAZ">
+      <comment>SAM: Medidas de audio en interfaces</comment>
+      <macro ref="CHARTOLONG">'M','A','U','I'</macro>
+    </item>
+    <item name="M_RED_SAM">
+      <comment>SAM: Medidas de red</comment>
+      <macro ref="CHARTOLONG">'M','R','E','D'</macro>
+    </item>
+    <item name="M_PRES_VRP">
+      <comment>Presencias del VR&amp;P</comment>
+      <macro ref="CHARTOLONG">'P','V','R','P'</macro>
+    </item>
+    <item name="M_PRES_ESTAD">
+      <comment>Presencias del Servidor de Estadísticas para que lo supervise el TMCS</comment>
+      <macro ref="CHARTOLONG">'P','E','S','T'</macro>
+    </item>
+    <item name="M_ESTADO_RED">
+      <comment>TMCS: Estado de la red</comment>
+      <macro ref="CHARTOLONG">'E','R','E','D'</macro>
+    </item>
+    <item name="M_MAX_SESIONES_SAM">
+      <comment>SAM: Numero maximo de sesiones alcanzado</comment>
+      <macro ref="CHARTOLONG">'N','S','E','S'</macro>
+    </item>
+    <item name="M_PORCENTAJE_AVANCE_SAM">
+      <comment>SAM: Porcentaje de avance</comment>
+      <macro ref="CHARTOLONG">'S','A','V','A'</macro>
+    </item>
+    <item name="M_INICIO_SESION_SAM">
+      <comment>SAM: Inicio de sesion</comment>
+      <macro ref="CHARTOLONG">'S','I','N','S'</macro>
+    </item>
+    <item name="M_FIN_SESION_SAM">
+      <comment>SAM: Fin de sesion</comment>
+      <macro ref="CHARTOLONG">'S','F','N','S'</macro>
+    </item>
+    <item name="M_LISTA_BATERIAS_SAM">
+      <comment>SAM: Consulta la lista de baterias de pruebas</comment>
+      <macro ref="CHARTOLONG">'S','Q','L','P'</macro>
+    </item>
+    <item name="M_CONSULTA_BATERIA_SAM">
+      <comment>SAM: Consulta de bateria de pruebas</comment>
+      <macro ref="CHARTOLONG">'S','Q','B','P'</macro>
+    </item>
+    <item name="M_CREACION_BATERIA_SAM">
+      <comment>SAM: Creacion de bateria de pruebas</comment>
+      <macro ref="CHARTOLONG">'S','C','B','P'</macro>
+    </item>
+    <item name="M_POSICION_BATERIA_SAM">
+      <comment>SAM: Alta, modificacion o borrado de las pruebas de una posición para una bateria de pruebas</comment>
+      <macro ref="CHARTOLONG">'S','M','B','P'</macro>
+    </item>
+    <item name="M_INTERFAZ_BATERIA_SAM">
+      <comment>SAM: Alta, modificacion o borrado de las pruebas de un interfaz para una bateria de pruebas</comment>
+      <macro ref="CHARTOLONG">'S','M','B','I'</macro>
+    </item>
+    <item name="M_BORRADO_BATERIA_SAM">
+      <comment>SAM: Borrado de bateria de pruebas</comment>
+      <macro ref="CHARTOLONG">'S','D','B','P'</macro>
+    </item>
+    <item name="M_RESULTADO_BATERIA_SAM">
+      <comment>SAM: Consulta del resultado de un bateria de pruebas</comment>
+      <macro ref="CHARTOLONG">'S','R','B','P'</macro>
+    </item>
+    <item name="M_EJECUTA_BATERIA_SAM">
+      <comment>SAM: Ejecuta una bateria de pruebas</comment>
+      <macro ref="CHARTOLONG">'S','X','B','P'</macro>
+    </item>
+    <item name="M_CANCELA_BATERIA_SAM">
+      <comment>SAM: Cancela la ejecucion una bateria de pruebas</comment>
+      <macro ref="CHARTOLONG">'S','N','B','P'</macro>
+    </item>
+    <item name="M_LISTA_MEDIDAS_RED">
+      <comment>SAM: Lista de medidas de red disponibles</comment>
+      <macro ref="CHARTOLONG">'S','L','M','R'</macro>
+    </item>
+    <item name="M_EJECUTA_MEDIDAS_RED">
+      <comment>SAM: Ejecuta un listado de medidas de red</comment>
+      <macro ref="CHARTOLONG">'S','X','M','R'</macro>
+    </item>
+    <item name="M_CANCELA_MEDIDAS_RED">
+      <comment>SAM: Cancela la ejecucion de medidas de red</comment>
+      <macro ref="CHARTOLONG">'S','C','M','R'</macro>
+    </item>
+    <item name="M_CONSULTA_UMBRALES">
+      <comment>SAM: Consulta los umbrales de las medidas del SAM</comment>
+      <macro ref="CHARTOLONG">'S','C','U','M'</macro>
+    </item>
+    <item name="M_MODIFICA_UMBRALES">
+      <comment>SAM: Modifica los umbrales de las medidas del SAM</comment>
+      <macro ref="CHARTOLONG">'S','M','U','M'</macro>
+    </item>
+    <item name="M_CONSULTA_PARAMETROS">
+      <comment>SAM: Consulta los parámetros de configuración del SAM</comment>
+      <macro ref="CHARTOLONG">'S','C','P','M'</macro>
+    </item>
+    <item name="M_MODIFICA_PARAMETROS">
+      <comment>SAM: Consulta los parámetros de configuración del SAM</comment>
+      <macro ref="CHARTOLONG">'S','M','P','M'</macro>
+    </item>
+    <item name="M_RESP_ACTIVACION_PATRON">
+      <comment>SAM: Respuesta a la peticion de la activacion de una posición como patrón</comment>
+      <macro ref="CHARTOLONG">'S','R','A','P'</macro>
+    </item>
+    <item name="M_ACTIVACION_PATRON">
+      <comment>SAM: Respuesta a la peticion de la activacion o desactivacion de una posición como patrón</comment>
+      <macro ref="CHARTOLONG">'S','A','C','P'</macro>
+    </item>
+    <item name="M_POSICION_MEDICION_SAM">
+      <comment>SAM: Peticion de la activacion o desactivacion de una posición en modo medición</comment>
+      <macro ref="CHARTOLONG">'S','A','P','M'</macro>
+    </item>
+    <item name="M_RESP_POSICION_MEDICION_SAM">
+      <comment>SAM: Respuesta a la peticion de la activacion o desactivacion de una posición en modo medición</comment>
+      <macro ref="CHARTOLONG">'S','R','P','M'</macro>
+    </item>
+    <item name="M_INTERFAZ_MEDICION_SAM">
+      <comment>SAM: Peticion de la activacion o desactivacion de un interfaz en modo medición</comment>
+      <macro ref="CHARTOLONG">'S','A','I','M'</macro>
+    </item>
+    <item name="M_RESP_MEDICION_SAM">
+      <comment>SAM: Respuesta a la peticion de la activacion o desactivacion de un interfaz en modo medición</comment>
+      <macro ref="CHARTOLONG">'S','R','I','M'</macro>
+    </item>
+    <item name="M_SET_LLAMADA_SAM">
+      <comment>SAM: Para establecer la llamada SAM</comment>
+      <macro ref="CHARTOLONG">'S','A','L','L'</macro>
+    </item>
+    <item name="M_RESP_LLAMADA_SAM">
+      <comment>SAM: Respuesta a la petición de establecer la llamada SAM</comment>
+      <macro ref="CHARTOLONG">'S','R','L','L'</macro>
+    </item>
+    <item name="M_SET_BUCLE_SAM">
+      <comment>SAM: Activacion de los bucles de la UGA</comment>
+      <macro ref="CHARTOLONG">'S','A','B','U'</macro>
+    </item>
+    <item name="M_PRES_WATCHDOG_SAM">
+      <comment>SAM: Mensajes de presencia del Servidor SAM al Watchdog</comment>
+      <macro ref="CHARTOLONG">'W','T','D','G'</macro>
+    </item>
+  </enum>
+  <enum name="E_SUBID_MSG" type="uint32" chars="4">
+    <item name="M_PING">
+      <macro ref="CHARTOLONG">'P','I','N','G'</macro>
+    </item>
+    <item name="M_STOP">
+      <macro ref="CHARTOLONG">'S','T','O','P'</macro>
+    </item>
+  </enum>
+  <enum name="E_TIPO_EQUIPO" chars="4">
+    <item name="EQ_NULO">0</item>
+    <item name="EQ_PUESTO">
+      <macro ref="CHARTOLONG">'P','U','E','S'</macro>
+    </item>
+    <item name="EQ_GATEWAY">
+      <macro ref="CHARTOLONG">'G','A','T','E'</macro>
+    </item>
+    <item name="EQ_GESTOR_MC">
+      <macro ref="CHARTOLONG">'G','_','M','C'</macro>
+    </item>
+    <item name="EQ_SUPERV">
+      <macro ref="CHARTOLONG">'S','U','P','E'</macro>
+    </item>
+    <item name="EQ_SUPERR">
+      <macro ref="CHARTOLONG">'S','U','P','R'</macro>
+    </item>
+    <item name="EQ_EQUI_GEN">
+      <macro ref="CHARTOLONG">'E','Q','G','E'</macro>
+    </item>
+    <item name="EQ_SAM">
+      <macro ref="CHARTOLONG">'S','S','A','M'</macro>
+    </item>
+    <item name="EQ_VRP">
+      <macro ref="CHARTOLONG">'S','V','R','P'</macro>
+    </item>
+    <item name="EQ_VRP_SACTA">
+      <macro ref="CHARTOLONG">'S','V','S','C'</macro>
+    </item>
+    <item name="EQ_PROXY">
+      <macro ref="CHARTOLONG">'P','R','X','Y'</macro>
+    </item>
+    <item name="EQ_ESTAD">
+      <macro ref="CHARTOLONG">'E','S','T','S'</macro>
+    </item>
+    <item name="EQ_WATCHDOG">
+      <macro ref="CHARTOLONG">'W','T','C','H'</macro>
+    </item>
+  </enum>
+  <enum name="E_EST_OPERATIVO" type="uint32">
+    <comment>Estado del procesador</comment>
+    <item name="E_NULO">0</item>
+    <item name="E_PRINCIPAL">1</item>
+    <item name="E_RESERVA">2</item>
+    <item name="E_FALLO">3</item>
+  </enum>
+  <enum name="E_SINO" type="uint8">
+    <item name="NO">0</item>
+    <item name="SI">1</item>
+  </enum>
+  <enum name="E_TIPO_PROC" type="uint32">
+    <item name="E_PROC_A">0</item>
+    <item name="E_PROC_B">1</item>
+  </enum>
+  <enum name="E_MOTIVO_SECTORIZ">
+    <comment>Procedencia sectorizacion</comment>
+    <item name="E_SECT_POR_ENVIO_CONFIG_NUEVA_TODOS">1</item>
+    <item name="E_SECT_POR_ENVIO_CONFIG_ARRANQUE_PUES_GW">2</item>
+    <item name="E_SECT_POR_SECT_LOCAL_TMCS">3</item>
+    <item name="E_SECT_POR_RECONF_UCS">4</item>
+    <item name="E_SECT_POR_SECT_SACTA">5</item>
+    <item name="E_NOSECT_POR_SECT_ERRONEA">6</item>
+    <item name="E_NOSECT_POR_SECT_EN_PROCESO">7</item>
+    <item name="E_NOSECT_POR_CONFIG_EN_PROCESO">8</item>
+    <item name="E_NOSECT_POR_SAM_SECTORIZADA">9</item>
+    <item name="E_SECT_SAM">10</item>
+    <item name="E_SECT_POR_RECONF_UCS_JACKS">11</item>
+  </enum>
+  <enum name="E_SUB_ID_MSJ_TLF">
+    <comment>SUBIDENTIFICADOR  MENSAJE(1 Byte)</comment>
+    <comment>Identificador del mensaje dentro de estadísticas telefonía</comment>
+    <item name="COMUNICACION">
+                        1<comment>Comunicación</comment>
+                </item>
+    <!--<item name="ESCUCHA">2<comment>Facilidad escucha</comment>
+                </item>-->
+    <item name="INTERVENCION">3<comment>Facilidad intervención</comment>
+                </item>
+    <item name="REDIAL">4<comment>Facilidad redial</comment>
+                </item>
+    <item name="PRIO">5<comment>Facilidad prioridad</comment>
+                </item>
+    <item name="RELL_AUTO">6<comment>Facilidad rellamada automática</comment>
+                </item>
+    <item name="CAPT_LLAM">7<comment>Captura de llamada</comment>
+                </item>
+    <item name="REDIR">8<comment>Redireccion llamadas</comment>
+                </item>
+    <item name="TRANSFER_LLAM">9<comment>Transferencia de llamada</comment>
+                </item>
+  </enum>
+  <enum name="E_SUB_ID_MSJ_RAD">
+    <comment>SUBIDENTIFICADOR  MENSAJE RADIO(1 Byte)</comment>
+    <comment>Identificador del mensaje dentro de estadísticas radio</comment>
+    <item name="PULSACION_PTT">1<comment>Pulsación PTT</comment>
+                </item>
+    <item name="SQUELCH">2<comment>Squelch (Enviado por los gateways)</comment>
+                </item>
+    <item name="SELECCION_TX">3<comment>Selección TX</comment>
+                </item>
+    <item name="SELECCION_RX">4<comment>Selección RX</comment>
+                </item>
+    <item name="FACILIDAD_GRUPO_RTX">5<comment>Facilidad grupo RTX</comment>
+                </item>
+    <item name="FACILIDAD_CASCOS_ALTAVOZ">6<comment>Facilidad cascos/altavoz</comment>
+                </item>
+    <item name="FACILIDAD_CAMBIO_EMPLAZAMIENTO">7<comment>Facilidad Cambio emplazamiento</comment>
+                </item>
+    <item name="FACILIDAD_INB_CASCOS_ALTAVOZ">8<comment>Facilidad INB. Cascos/Altavoz</comment>
+                </item>
+    <item name="FACILIDAD_ULTIMA_LLAMADA_RADIO">9<comment>Facilidad Última llamada radio</comment>
+                </item>
+    <item name="FACILIDAD_BSS_OVER">10<comment>Facilidad BSS Over</comment>
+                </item>
+    <item name="FACILIDAD_CLIMAX">11<comment>Facilidad CLIMAX</comment>
+                </item>
+    <item name="RECEPECION_AUDIO_EN_POSICION">12<comment>Recepción audio en posición</comment>
+                </item>
+    <item name="CALIDAD_BSS">13<comment>Calidad BSS (Enviado por los gateways)</comment>
+                </item>
+    <item name="FACILIDAD_ANNADIR_FREC">14<comment>Facilidad Añadir FREC</comment>
+                </item>
+    <item name="FACILIDAD_BORRAR_FREC">15<comment>Facilidad Borrar FREC</comment>
+                </item>
+    <item name="FACILIDAD_CAMBIO_MAIN_STANDBY">16<comment>Facilidad Cambio Main/Standby</comment>
+                </item>
+    <item name="FACILIDAD_CAMBIO_PAGINA_RADIO">17<comment>Facilidad Cambio página radio</comment>
+                </item>
+    <item name="FACILIDAD_SIDETONE">18<comment>Facilidad Side Tine</comment>
+                </item>
+    <item name="FACILIDAD_JACKS_CONT">19<comment>Facilidad Jacks Controlador. Esta facilidad es virtual, ya que se recibe realmente como parte del mensaje de presencia de los puestos.</comment>
+                </item>
+    <item name="FACILIDAD_JACKS_COORD">20<comment>Facilidad Jacks Coordinador. Esta facilidad es virtual, ya que se recibe realmente como parte del mensaje de presencia de los puestos.</comment>
+                </item>
+    <item name="CAPT_COORD_RADIO">21<comment>Captura de servicios radio por el Coordinador</comment>
+                </item>
+  </enum>
+  <enum name="E_SISTEMA_ABC" chars="1" type="int8">
+    <comment>SISTEMA (A/B/C)   (Sistema activo donde se realiza la llamada) (1 Byte)</comment>
+    <item name="SISTEMA_A">'A'</item>
+    <item name="SISTEMA_B">'B'</item>
+    <item name="SISTEMA_AYB"><comment>Sistema A + Sistema B</comment>'C'
+    </item>
+  </enum>
+  <enum name="E_TIPO_EQUIPO_EST">
+    <comment>Tipo equipo(Puesto/Gateway) origen/destino llamada</comment>
+    <item name="EQ_EST_NULO">0</item>
+    <item name="EQ_EST_PUESTO"><comment>PUESTO</comment>1
+    </item>
+    <item name="EQ_EST_GATEWAY"><comment>GATEWAY</comment>2
+    </item>
+    <item name="EQ_EST_GESTOR_MC">3</item>
+    <item name="EQ_EST_SUPERV"><comment>TMCS</comment>4
+    </item>
+    <item name="EQ_EST_EQUI_GEN"><comment>EQUIPO EN GENERAL, PUEDE SER UN GW,PUES, ...</comment>5
+    </item>
+  </enum>
+  <enum name="E_TIPO_PUESTO">
+    <item name="PUESTO_APOYO">
+      <comment>PUESTO APOYO</comment>
+    </item>
+    <item name="TELEFONO_IP"/>
+    <item name="NO_PUESTO"/>
+    <item name="PUESTO_EJ">
+      <comment>PUESTO EJECUTIVO</comment>
+    </item>
+    <item name="PUESTO_PL">
+      <comment>PUESTO PLANIFICADOR</comment>
+    </item>
+  </enum>
+  <enum name="E_TIPO_GATEWAY">
+    <item name="GW_NOIDEN">0</item>
+    <item name="GW_INDRA"/>
+    <item name="GW_OTRO">
+      <comment>Gateway comercial CISCO</comment>
+    </item>
+    <item name="GW_POSICION"/>
+  </enum>
+  <enum name="E_TIPO_ABONADO_INTERNO">
+    <item name="ABO_APOYO">
+      <comment>Abonado que puede asociarse a puestos</comment>
+    </item>
+    <item name="ABO_PILOTO">
+      <comment>Piloto para simuladores</comment>
+    </item>
+    <item name="ABO_TELEFONO">
+      <comment>Telefonos</comment>
+    </item>
+    <item name="ABO_EJECUTIVO">
+      <comment>Abonado que se asocia a un puesto que pertenece a una UCS</comment>
+    </item>
+    <item name="ABO_PLANIFICADOR">
+      <comment>Abonado que se asocia a un puesto que pertenece a una UCS</comment>
+    </item>
+    <item name="NO_ABONADO">
+      <comment>No definido el abonado</comment>
+    </item>
+  </enum>
+  <enum name="E_ESTADO_ENLACE">
+    <item name="M_C">0x80<comment>Máscara de configurado -&gt; Solo para enlaces telefonía</comment>
+                </item>
+    <item name="M_U">0x40<comment>Máscara de util -&gt; Solo para enlaces telefonía</comment>
+                </item>
+    <item name="PROTOCOLO_OK">(M_C | M_U)<comment>Protocolo correcto, en tarjetas R2, LCN</comment>
+                </item>
+    <item name="PROTOCOLO_MAL">0<comment>Protocolo mal, en tarjetas R2, LCN</comment>
+                </item>
+    <item name="IFGW_TINEX">0x0F<comment>Tarjeta inexistente</comment>
+                </item>
+  </enum>
+  <enum name="E_TIPO_ENLACE">
+    <comment>Con el tipo de tarjeta se determinará el tipo de red a través del que se hace una llamada:</comment>
+    <comment>- Redes PSTN (públicas) -&gt; EYMDTMF, PABX, E1, BRI, FXO,  ISDN_ST</comment>
+    <comment>- Redes AGVN (red entre centros de control) - R2, QSIG, N5</comment>
+    <comment>- Redes AGVN punto a punto (TFU/FXS, BL, BC, EYM, LCE)</comment>
+    <item name="EYMDTMF" type="PSTN">0x01</item>
+    <item name="LCN">0x02</item>
+    <item name="CR">0x03</item>
+    <item name="N5" type="AGVN">0x05<comment>CCITT 5</comment></item>
+    <item name="EYM" type="AGVN_P2P">0x06</item>
+    <item name="CRI">0x07</item>
+    <item name="LCE" type="AGVN_P2P">0x09</item>
+    <item name="BL" type="AGVN_P2P">0x0a</item>
+    <item name="PABX" type="PSTN">0x0b</item>
+    <item name="R2" type="AGVN">0x0c</item>
+    <item name="QSIG" type="AGVN">0x0d</item>
+    <item name="TFU" type="AGVN_P2P">0x0e</item>
+    <item name="VACIO">0x0f</item>
+    <item name="ISDN_ST" type="PSTN">0x1d</item>
+    <item name="E1" type="PSTN">0x2d</item>
+    <item name="BRI" type="PSTN">0x2e</item>
+    <item name="FXO" type="PSTN">0x2f</item>
+    <item name="FXS" type="AGVN_P2P">0x30</item>
+    <item name="LC_AUX1">0x31<comment>Tarjeta IKUSI</comment></item>
+    <item name="CR_AUX1">0x32<comment>Tarjeta de trunking (TELTRONIC)</comment></item>
+    <item name="CR_BSS">0x33<comment>Tarjeta Canal Radio con BSS</comment></item>
+    <item name="NO_ENL"/>
+  </enum>
+  <enum name="E_EST_TF">
+    <comment>ESTADO DE LA COMUNICACION  (1 Byte)</comment>
+    <comment>Dependen del valor del campo SUBIDENTIFICADOR  MENSAJE.</comment>
+    <comment>Fase de la comunicación en la que se encuentra la línea frente a la terminación relacionada</comment>
+    <item name="E_TF_SINESTADO">1</item>
+    <item name="E_TF_NULL">
+      <comment>JALR</comment>
+    </item>
+    <item name="E_TF_INICIAL">
+      <comment>Libre</comment>
+    </item>
+    <item name="E_TF_LLAMADO">
+      <comment>Llamada pasiva (Recibiendo llamada)</comment>
+    </item>
+    <item name="E_TF_CONECTANDO">
+      <comment>NO USADO EN ESTADISTICAS </comment>
+    </item>
+    <item name="E_TF_LLAMANDO">
+      <comment>Llamada activa (Llamando)</comment>
+    </item>
+    <item name="E_TF_CONVERSACION">
+      <comment>Conversacion</comment>
+    </item>
+    <item name="E_TF_RETENIDA">
+      <comment>Consulta pasiva (Lo han dejado retenido)- Llamadas retenidas por otro puesto</comment>
+    </item>
+    <item name="E_TF_HOLD">
+      <comment>Consulta activa (Deja algún retenido) - Llamadas retenidas por el puesto local</comment>
+    </item>
+    <item name="E_TF_TRANSITO">
+      <comment>NO USADO EN ESTADISTICAS</comment>
+    </item>
+    <item name="E_TF_ESCUCHANDO">
+      <comment>Escucha activa (Escuchando)</comment>
+    </item>
+    <item name="E_TF_ESCUCHADO">
+      <comment>Escucha pasiva (Escuchado)</comment>
+    </item>
+    <item name="E_TF_PARK_ACT">
+      <comment>Park activo (Deja a alguno aparcado)</comment>
+    </item>
+    <item name="E_TF_PARK_PAS">
+      <comment>Park pasivo (Lo han dejado aparcado)</comment>
+    </item>
+    <item name="E_TF_INTERVENIDO">
+    </item>
+    <item name="E_TF_ANULANDO">
+      <comment>Anulación activa (El usuario ha pulsado tecla ANUL)</comment>
+    </item>
+    <item name="E_TF_ANULADO">
+      <comment>Anulación activa (El usuario ha pulsado tecla ANUL)</comment>
+    </item>
+    <item name="E_TF_INTRUA">30
+                        <comment>Intrusión activa (Intruyendo) 		(0x05)</comment>
+                </item>
+    <item name="E_TF_INTRUP">
+      <comment>Intrusión pasiva (Intruido)			(0x06)</comment>
+    </item>
+    <item name="E_TF_LLACON">
+      <comment>Llamada en consulta			(0x0A)</comment>
+    </item>
+    <item name="E_TF_CONCON">
+      <comment>Conversación en consulta			(0x0B)</comment>
+    </item>
+    <item name="E_TF_OCUPADO">
+      <comment>Ocupado (Descolgado)			(0x0C)</comment>
+    </item>
+    <item name="E_TF_INTERVENCION">
+      <comment>El origen interviene a destino		(0x0D)</comment>
+    </item>
+    <item name="E_TF_INTVDO">
+      <comment>El destino es intervenido			(0x0E)</comment>
+    </item>
+    <item name="E_TF_FACIL_ACTIVA">
+      <comment>Facilidad activa</comment>
+    </item>
+    <item name="E_TF_REDIR_ACTIVA">
+      <comment>Quien pulsa la tecla redir se pone en este subestado</comment>
+    </item>
+    <item name="E_TF_REDIR_PASIVA">
+      <comment>Quien recibe la redireccion se pone en este estado</comment>
+    </item>
+    <item name="E_TF_CI_CIPL_A">
+      <comment>Intrusion GET_CIPL en canal instructor	(0x10)</comment>
+    </item>
+    <item name="E_TF_CI_CIPL_P">
+      <comment>Intrusion GET_CIPL en canal intruido	(0x11)</comment>
+    </item>
+    <item name="E_TF_CI_NOTI_A">
+      <comment>Intrusion CI_NOTI en canal intructor	(0x12)</comment>
+    </item>
+    <item name="E_TF_CI_NOTI_P">
+      <comment>Intrusion CI_NOTI en canal intruido	(0x13)</comment>
+    </item>
+    <item name="E_TF_CI_CONV_A">
+      <comment>Intrusion CI_CONV en canal intructor	(0x14)</comment>
+    </item>
+    <item name="E_TF_CI_CONV_B">
+      <comment>Intrusion CI_CONV en canal intruido	(0x15)</comment>
+    </item>
+    <item name="E_TF_PET_CIPL">
+      <comment>Marca de peticion CIPL en canal instructor	(0x15)</comment>
+    </item>
+    <item name="E_TF_IA_TRANSTXLC">
+      <comment>(0x1A)</comment>
+    </item>
+    <item name="E_TF_IA_TXLC">
+      <comment>(0x1B)</comment>
+    </item>
+    <item name="E_TF_IA_RXLC">
+      <comment>(0x1C)</comment>
+    </item>
+  </enum>
+  <enum name="E_SUBESTADO">
+    <comment>Da indicación adicional, sobre el estado de la comunicación.</comment>
+    <comment>- Los tres primeros subestados, acompañan al estado de LIBRE, para indicar que una llamada (LLAMAA) se anuló, por cualquiera de ellos.</comment>
+    <comment>- El estado INTV acompaña al estado de CONVER para indicar que tal línea, esta en estado de posible intervención (requisada).</comment>
+    <item name="NINGUNO"><comment>No hay subestado</comment>0
+    </item>
+    <item name="OCUP"><comment>terminal remoto ocupado</comment>0x04
+    </item>
+    <item name="CONG"><comment>teminal de salida congestionado</comment>0x05
+    </item>
+    <item name="FS"><comment>terminal remoto fuera de servicio</comment>0x06
+    </item>
+    <item name="RECH"><comment>rechazo</comment>0x07
+    </item>
+    <item name="INTV"><comment>intervencion</comment>0x09
+    </item>
+    <item name="RELLAMADA"><comment>rellamada</comment>0x0A
+    </item>
+    <item name="OCU_EXT"><comment>ocupado externo</comment>0x0B
+    </item>
+    <comment type="sequence">Subestados especiales de QSIG:</comment>
+    <item name="CCAN_ATS"><comment>Cambio de canal QSIG en saliente</comment>0x0F
+    </item>
+    <item name="REEN_ATS"><comment>Reecaminamiento de entrante</comment>0x13
+    </item>
+    <item name="PROG_ATS"><comment>progress</comment>0x11
+    </item>
+    <item name="ALERT_ATS"><comment>Alerting</comment>0x12
+    </item>
+    <comment type="sequence">Subestados para intrusión QSIG:</comment>
+    <item name="INTRUS_ATS"><comment>Intrusion QSIG</comment>0x15
+    </item>
+    <item name="EXPCIT5_ATS"><comment>Indicación de expiración del timer T5</comment>0x16
+    </item>
+    <item name="INTRUS_FAIL"><comment>Indicación de intrusión fallida</comment>0x17
+    </item>
+    <item name="INTRUS_COMP">0x18</item>
+    <comment type="sequence">Subestados aplicables a LC QSIG (SS-IA):</comment>
+    <item name="TXLC">0x20</item>
+    <item name="RXLC">0x21</item>
+    <item name="OCUTXLC">0x22</item>
+    <item name="ANUTXLC">0x23</item>
+    <item name="ANURXLC">0x24</item>
+    <item name="OCURXLC">0x25</item>
+    <item name="NOTECLC">0x26</item>
+  </enum>
+  <enum name="E_SERVICIO" type="uint8">
+    <comment>SERVICIO (RD/AD/LC)  (1 Byte)</comment>
+    <item name="S_TLF">
+                        2<comment>Llamada TLF tanto AD o AI</comment>
+                </item>
+    <item name="S_LC">3</item>
+    <item name="S_AD">
+                        4<comment>Llamada TLF por AD</comment>
+                </item>
+    <item name="S_AI">
+                        5<comment>Llamada TLF por AI</comment>
+                </item>
+  </enum>
+  <enum name="E_TIPO_PRIORIDAD_R2" type="uint8">
+    <comment>Prioridad de la llamada. Numérico.</comment>
+    <item name="PRIORIDAD_PRIO">1</item>
+    <item name="PRIORIDAD_ALTA">2</item>
+    <item name="PRIORIDAD_MEDIA">3</item>
+    <item name="PRIORIDAD_BAJA">4</item>
+    <item name="PRIORIDAD_PRIO_TRANS">6</item>
+    <item name="PRIORIDAD_ALTA_TRANS">7</item>
+    <item name="PRIORIDAD_MEDIA_TRANS">8</item>
+    <item name="PRIORIDAD_BAJA_TRANS">9</item>
+  </enum>
+  <enum name="E_TIPO_RUTA_EST" type="uint8">
+    <comment>Nos indica el tipo de ruta de la llamada, si es interna, directa, alternativa o es tránsito.</comment>
+    <item name="SIN_RUTA_EST">
+      0<comment>Sin Ruta definida</comment>
+                </item>
+    <item name="RUTA_LOCAL_EST">
+      1<comment>Ruta Local</comment>
+                </item>
+    <item name="RUTA_ATSDIRECTA_EST">
+      3<comment>Ruta ATS Directa</comment>
+                </item>
+    <item name="RUTA_ATSALTERNATIVA_EST">
+      4<comment>Ruta ATS Alternativa</comment>
+                </item>
+    <item name="RUTA_TRANSITO_EST">
+      7<comment>Ruta transito</comment>
+                </item>
+  </enum>
+  <enum name="E_ESTADO_CONFIG" type="uint32">
+    <comment>Estado de la configuración</comment>
+    <item name="E_ESTADO_NO_VALIDADA">1<comment>Configuración no validada</comment>
+                </item>
+    <item name="E_ESTADO_VALIDADA">2<comment>Configuración validada</comment>
+                </item>
+    <item name="E_ESTADO_VERSIONADA">3<comment>Configuración versionada (bloqueada)</comment>
+                </item>
+    <item name="E_ESTADO_BORRADA">4<comment>Configuración eliminada</comment>
+                </item>
+  </enum>
+  <enum name="E_PROCEDENCIA_SECTORIZ">
+    <comment>Procedencia sectorizacion (local, del propio TMCS) o remota por envío de un agente externo</comment>
+    <item name="E_SECT_LOCAL">1</item>
+    <item name="E_SECT_REMOTA">2</item>
+  </enum>
+  <enum name="TIPO_TMCS">
+    <item name="TIPO_CLIENTE">'C'</item>
+    <item name="TIPO_SERVIDOR">'S'</item>
+  </enum>
+  <enum name="E_ESTADO_ENLACE_SACTA" type="uint32">
+    <item name="E_ESTADO_ENLACE_SACTA_CONECTADO">1<comment>Enlace conectado</comment>
+                </item>
+    <item name="E_ESTADO_ENLACE_SACTA_DESCONECTADO">2<comment>Enlace desconectado</comment>
+                </item>
+  </enum>
+  <enum name="E_ESTADO_LAN" type="uint8">
+    <item name="E_ESTADO_LAN_CONECTADO">1<comment>LAN conectado</comment>
+                </item>
+    <item name="E_ESTADO_LAN_DESCONECTADO">2<comment>LAN desconectado</comment>
+                </item>
+  </enum>
+  <enum name="E_MODO_SAM" type="uint8">
+    <item name="MED_AUDIO">1<comment>Realizando medidas de audio analógico</comment>
+                </item>
+    <item name="MED_RED">2<comment>Realizando medidas de red</comment>
+                </item>
+    <item name="REPOSO">3<comment>No está realizando ninguna medida</comment>
+                </item>
+  </enum>
+  <enum name="E_TIPO_AUDIO_RED" type="uint8">
+    <item name="TIPO_AUDIO">1<comment>Audio analógico</comment>
+                </item>
+    <item name="TIPO_RED">2<comment>Red</comment>
+                </item>
+  </enum>
+  <enum name="E_VALOR_OPTIMO" type="uint8">
+    <comment>Valor deseado para la medida</comment>
+    <item name="MINIMO">1<comment>La medida es mejor cuanto menor sea</comment>
+                </item>
+    <item name="MAXIMO">2<comment>La medida es mejor cuanto mayor sea</comment>
+                </item>
+  </enum>
+  <!--
+        <enum name="E_TIPO_VALOR" type="uint8">
+                <item name="ENTERO">1<comment>Valor entero</comment>
+                </item>
+                <item name="REAL">2<comment>Valor real</comment>
+                </item>
+        </enum>
+        -->
+	<enum name="E_TIPO_CR" type="uint8">
+		<item name="MSK_RX">0x40<comment>Máscara de selección de recepción</comment></item>
+		<item name="MSK_SQ">0x20<comment>Máscara de squelch</comment></item>
+		<item name="MSK_TX">0x10<comment>Máscara de transmisión</comment></item>
+		<item name="MSK_MTX">0x08<comment>Máscara de múltiple TX</comment></item>
+		<item name="MSK_PTT">0x04<comment>Máscara de PTT</comment></item>
+		<item name="MSK_RTX">0x02<comment>Máscara de retransmisión</comment></item>
+		<item name="MSK_PTT_FICT">0x01<comment>Máscara de PTT ficticio</comment></item>
+	</enum>
+    <enum name="E_RESULTADO" type="uint8">
+    <comment>Clasificación de resultados obtenidos (posición/interfaz)</comment>
+    <item name="E_RESULTADO_OPTIMO">1<comment>Todas las medidas realizadas han tenido resultado OPTIMO</comment>
+                </item>
+    <item name="E_RESULTADO_BUENO">2<comment>Al menos un resultado es BUENO y ninguno MALO</comment>
+                </item>
+    <item name="E_RESULTADO_MALO">3<comment>Al menos un resultado es MALO</comment>
+                </item>
+    <item name="E_RESULTADO_NO_RES">4<comment>Ninguna de las medidas tiene umbral definido</comment>
+                </item>
+  </enum>
+  <enum name="E_RES_MEDIDA" type="uint8">
+    <comment>Igual que E_RESULTADO pero se define de nuevo porque tiene distinto significado</comment>
+    <item name="E_RES_MEDIDA_OPTIMO">1<comment>Resultado mejor que el umbral (si hay 1 umbral) y mejor que el umbral óptimo (si hay 2 umbrales)</comment>
+                </item>
+    <item name="E_RES_MEDIDA_BUENO">2<comment>Resultado entre ambos umbrales (si hay 2 umbrales)</comment>
+                </item>
+    <item name="E_RES_MEDIDA_MALO">3<comment>	Resultado peor que el umbral (si hay 1 umbral) y peor que ambos umbrales (si hay 2 umbrales)</comment>
+                </item>
+    <item name="E_RES_MEDIDA_NO_RES">4<comment>Medida sin umbrales</comment>
+                </item>
+  </enum>
+  <enum name="E_ID_CANAL_BUCLE" type="uint8">
+    <item name="CANAL_1">1<comment>Bucle del canal 1 de una tarjeta ISDN o QSIG</comment>
+                </item>
+    <item name="CANAL_2">2<comment>Bucle del canal 2 de una tarjeta ISDN o QSIG</comment>
+                </item>
+    <item name="CANAL_3">3<comment>Bucle del canal 3 de una tarjeta QSIG</comment>
+                </item>
+    <item name="CASCOS_1">4<comment>Bucle de la salida de audio de los Jacks 1, del controlador</comment>
+                </item>
+    <item name="CASCOS_2">5<comment>Bucle de la salida de audio de los Jacks 2, del coordinador</comment>
+                </item>
+    <item name="ALTAVOZ_RAD">6<comment>Bucle del altavoz de radio</comment>
+                </item>
+    <item name="ALTAVOZ_AI">7<comment>Bucle del altavoz de telefonía</comment>
+                </item>
+    <item name="MICRO_1">8<comment>Bucle de la entrada de audio de los Jacks 1, del controlador</comment>
+                </item>
+    <item name="MICRO_2">9<comment>Bucle de la entrada de audio de los Jacks 2, del coordinador</comment>
+                </item>
+  </enum>
+  <enum name="E_TIPO_MEDIDA">
+    <item name="ATENUACION">1<comment>Atenuación en función de la frecuencia</comment></item>
+    <item name="RUIDO">2<comment>Ruido en canal en reposo</comment></item>
+    <item name="DISTORSION">3<comment>Distorsión</comment></item>
+    <item name="RETARDO_INTERNO">4<comment>Retardo Interno (entre posiciones)</comment></item>
+    <item name="RETARDO_EXTERNO">5<comment>Retardo Externo (posición-interfaz)</comment></item>
+    <item name="PESQ">6<comment>Índice eléctrico de calidad de voz (PESQ LQO)</comment></item>
+    <item name="TAM_RECORTES">7<comment>Tamaño Recortes temporales de segmentos de voz</comment></item>
+    <item name="NUM_RECORTES">8<comment>Cantidad de Recortes temporales de segmentos de voz</comment></item>
+    <item name="ECO">9<comment>Eco</comment></item>
+    <item name="DIAFONIA">10<comment>Diafonía</comment></item>
+    <item name="IPDV_ANALOGICO">11<comment>IPDV (Inter Packet Delay Variation) analógico</comment></item>
+    <item name="IPDV_DIGITAL">12<comment>IPDV (Inter Packet Delay Variation) digital (de tramas RTP)</comment></item>
+    <item name="PAQUETES_PERDIDOS">13<comment>Paquetes perdidos</comment></item>
+  </enum>
+  <enum name="E_ESTADO_FTP" type="uint8">
+    <item name="E_ESTADO_FTP_ACTIVO">1<comment>Estado ACTIVO</comment>
+                </item>
+    <item name="E_ESTADO_FTP_NO_ACTIVO">2<comment>Estado NO ACTIVO</comment>
+                </item>
+  </enum>
+  <enum name="E_ESTADO_GENERAL" type="uint8">
+    <comment>Estado general del componente (web, BD, server)</comment>
+    <item name="E_ESTADO_GENERAL_ACTIVO">1<comment>Estado ACTIVO</comment>
+                </item>
+    <item name="E_ESTADO_GENERAL_NO_ACTIVO">2<comment>Estado NO ACTIVO</comment>
+                </item>
+  </enum>
+  <enum name="E_ESTADO_CLUSTER" type="uint8">
+    <comment>Estado del cluster</comment>
+    <item name="E_ESTADO_CLUSTER_ACTIVO">1<comment>Estado ACTIVO</comment>
+                </item>
+    <item name="E_ESTADO_CLUSTER_NO_ACTIVO">2<comment>Estado NO ACTIVO</comment>
+                </item>
+    <item name="E_ESTADO_CLUSTER_DEGRADADO">3<comment>Estado DEGRADADO</comment>
+                </item>
+    <item name="E_ESTADO_CLUSTER_FALLO">4<comment>Estado FALLO</comment>
+                </item>
+  </enum>
+  <enum name="E_ESTADO_BACKUP" type="uint8">
+    <comment>	Estado del backup de la BD</comment>
+    <item name="E_ESTADO_BACKUP_OK">1<comment>Estado ACTIVO</comment>
+                </item>
+    <item name="E_ESTADO_BACKUP_NO_ACTUALIZADO">2<comment>Estado NO ACTUALIZADO</comment>
+                </item>
+    <item name="E_ESTADO_BACKUP_FALLO">3<comment>Estado FALLO</comment>
+                </item>
+  </enum>
+  <enum name="E_MEDIDAS_RED" type="uint8">
+    <comment>Medidas de red que puede realizar el SAM</comment>
+    <item name="IPDV">0<comment>IPDV Digital</comment>
+                </item>
+    <item name="PAQPERDIDOS">1<comment>Paquetes perdidos</comment>
+                </item>
+  </enum>
+  <!--
+        <enum name="E_ESTADO_POS_PATRON" type="uint8">
+                <comment>Estado de la posición patrón en el SAM</comment>
+                <item name="ACTIVADA">0<comment>Posición patrón en modo patrón SAM</comment>
+                </item>
+                <item name="DESACTIVADA">1<comment>Posición patrón no esta en modo patrón SAM</comment>
+                </item>
+                <item name="ERROR_PATRON">2<comment>No se reciben presencias de la posición patrón</comment>
+                </item>
+        </enum>
+    -->
+  <enum name="E_ESTADO_POSICION" type="uint8">
+    <comment>Estado de la posición en el SAM</comment>
+    <item name="NO_OK">0<comment>Posición en modo DESACTIVADA</comment>
+        </item>
+    <item name="OK">1<comment>Posición en modo ACTIVADA</comment>
+        </item>
+  </enum>
+  <enum name="E_ON_OFF" type="uint8">
+    <comment>Para activar o desactivar los modos patrón en posiciones y medición en posiciones e interfaces</comment>
+    <item name="OFF">0<comment>Desactivacion</comment>
+                </item>
+    <item name="ON">1<comment>Activacion</comment>
+                </item>
+  </enum>
+  <enum name="E_ABONADO_SAM" type="uint8">
+    <comment>Tipo de abonado SAM: MEDIDAS o PATRÓN</comment>
+    <item name="ABONADO_NULO">0</item>
+    <item name="PATRON">1<comment>PATRÓN</comment></item>
+    <item name="MEDIDAS">2<comment>MEDIDAS</comment></item>
+  </enum>
+  <enum name="E_TIPO_ERROR_SAM" type="uint8">
+    <comment>Tipos de error y motivos de rechazo</comment>
+    <item name="TIMEOUT_POSICION">1<comment>Error timeout TIMOUT_SET_POS_MEDICION superado. Activacion modo medición</comment>
+                </item>
+    <item name="SECTORIZADA">2<comment>Error la posición ya estaba sectorizada. Activacion modo medición / patrón</comment>
+                </item>
+    <item name="FALLO_SECTORIZACION">3<comment>Error la posición no se pudo sectorizar o des-sectorizar con el usuario ID_USR_MEDIDAS o ID_USR_PATRON</comment>
+                </item>
+    <item name="FALLO_REGISTRO">4<comment>Error la posición no se pudo registrar o des-registrar en el proxy. Activacion modo medición / patrón</comment>
+                </item>
+    <item name="TIMEOUT_PATRON">5<comment>Error timeout TIMOUT_SET_POS_PATRON superado. Activacion modo patrón</comment>
+                </item>
+    <item name="ERROR_PRESENCIAS">6<comment>Error no se reciben presencias del gateway que contiene la interfaz. Activacion / desactivacion modo medición o analisis de audio</comment>
+                </item>
+    <item name="ERROR_ESTADO_TARJETA">7<comment>Error las presencias del GW indican que la tarjeta esta fuera de servicio. Análisis audio interfaz</comment>
+                </item>
+    <item name="ERROR_TIPO">8<comment>Error las presencias del GW indican que el tipo de la tarjeta que está en el GW no coincide con el tipo de la tarjeta configurada. Análisis audio interfaz</comment>
+                </item>
+    <item name="TIMEOUT_INTERFAZ">9<comment>Error timeout TIMOUT_SET_INT_MEDIDAS superado. Análisis audio interfaz</comment>
+                </item>
+    <item name="NO_ACEPTADO">10<comment>Error la petición de cambio no se ha aceptado. Análisis audio interfaz</comment>
+                </item>
+    <item name="FALLO_LLAMADA_SAM">11<comment>Error en el establecimiento de la llamada SAM. Análisis audio posición / interfaz</comment>
+                </item>
+    <item name="FALLO_DES_LLAMADA_SAM">12<comment>Error en la finalizacion de la llamada SAM. Análisis audio posición / interfaz</comment>
+                </item>
+    <item name="FALLO_ACTIVACION_BUCLE">13<comment>Error en la activacion de un bucle en la posición. Análisis audio posición</comment>
+                </item>
+    <item name="FALLO_DES_ACTIVACION_BUCLE">14<comment>Error en la desactivacion de un bucle en la posición. Análisis audio posición</comment>
+                </item>
+    <item name="TIMEOUT_MEDIDAS">15<comment>Error timeout TIMOUT_SET_POS_MEDIDAS superado. Análisis audio posición</comment>
+                </item>
+    <item name="ERROR_ESTADO">16<comment>Error no se reciben presencias de la posición. Activacion / desactivacion modo medición / patrón o análisis de audio</comment>
+        </item>
+    <item name="SIN_RECHAZO">19<comment>Respuesta cuando la posición se ha activado en modo Patron correctamente. Activacion posición patrón</comment>
+                </item>
+    <item name="OTROS">20<comment>Error otros motivos de rechazo</comment>
+                </item>
+  </enum>
+  <!--
+  <enum name="">
+    <item name=""></item>
+    <item name="">
+      <comment></comment>
+    </item>
+  </enum>
+  -->
+  <struct name="MSG_EST_CONFIG">
+    <comment>Mensajes de estado de las configuraciones - MSG_EST_CONFIG</comment>
+    <item name="idConfig" type="uint32"/>
+    <item name="subIdConfig" type="uint32"/>
+    <item name="nombreConfig" type="int8">
+      <dimension>
+        <macro ref="NMAX_NOMBRE_CONFIG"/>
+      </dimension>
+      <comment>Nombre de la configuración</comment>
+    </item>
+    <item name="version" type="int8">
+      <dimension>
+        <macro ref="NMAX_VERSION_CONFIG"/>
+      </dimension>
+      <comment>Versión de la configuración</comment>
+    </item>
+    <item name="estado" type="E_ESTADO_CONFIG"/>
+  </struct>
+  <struct name="IDENT_EQUIPO">
+    <item name="tipoEq" type="E_TIPO_EQUIPO"/>
+    <item name="id" type="uint32"/>
+  </struct>
+  <struct name="CAB_MSG_TH">
+    <comment anchor="parent">Cabecera de todos los mensajes</comment>
+    <item name="lng" type="uint16">
+      <comment>Longitud mensaje incluyendo este campo.   (2 bytes)</comment>
+    </item>
+    <item name="tipoMsg" type="E_TIP_MSG">
+      <comment>Peticion, respuesta, notificacion   (4 bytes)</comment>
+    </item>
+    <item name="idMsg" type="E_ID_MSG">
+      <comment>Identificacion de mensaje  (4 bytes)</comment>
+    </item>
+    <item name="dirOrigen" type="IPv4">
+      <comment>Direccion IP del servidor SAM (4 bytes)</comment>
+    </item>
+    <item name="dirDestino" type="IPv4">
+      <comment>Direccion de Destino  (4 bytes)</comment>
+    </item>
+    <item name="idOrigen" type="IDENT_EQUIPO">
+      <comment>Identificador equipo origen</comment>
+    </item>
+    <item name="idDestino" type="IDENT_EQUIPO">
+      <comment>Identificador equipo destino</comment>
+    </item>
+    <item name="portDestino" type="uint16">
+      <comment>Puerto destino   (2 bytes)</comment>
+    </item>
+    <item name="numMensaje" type="uint32">
+      <comment>Identifica a cada mensaje(este numero es distinto para cada mensaje)  (4 bytes)</comment>
+    </item>
+  </struct>
+  <struct name="SUP_PUES">
+    <comment anchor="parent">Puesto</comment>
+    <item name="idAbonado" type="uint32">
+      <comment>Id del abonado</comment>
+    </item>
+    <item name="nomAbonado" type="int8">
+      <dimension>
+        <macro ref="MAX_NOMBRE_ABONADO"/>
+      </dimension>
+      <comment>Nombre del abonado</comment>
+    </item>
+    <item name="estJacksCont" type="uint8" source="E_SINO">
+      <comment>Estado jacks controlador (SI/NO)</comment>
+    </item>
+    <item name="estJacksCoord" type="uint8" source="E_SINO">
+      <comment>Estado jacks coordinador (SI/NO)</comment>
+    </item>
+    <item name="estPttCont" type="uint8" source="E_SINO">
+      <comment>Estado PTT controlador (SI/NO)</comment>
+    </item>
+    <item name="estPttCoord" type="uint8" source="E_SINO">
+      <comment>Estado PTT coordinador  (SI/NO)</comment>
+    </item>
+    <item name="servRad" type="uint8" source="E_SINO">
+      <comment>Servicio radio (SI/NO)</comment>
+    </item>
+    <item name="servTlf" type="uint8" source="E_SINO">
+      <comment>Servicio telefonía (SI/NO)</comment>
+    </item>
+    <item name="servLC" type="uint8" source="E_SINO">
+      <comment>Servicio linea caliente (SI/NO)</comment>
+    </item>
+    <item name="sectorizado" type="uint8" source="E_SINO">
+      <comment>Indica si el puesto esta sectorizado (SI/NO)</comment>
+    </item>
+  </struct>
+  <struct name="ESTADO_HW_GENERAL">
+    <item name="tipoGW_68" type="E_TIPO_PROC">
+      <comment>Tipo procesador 68000 (A = 0 o B = 1)</comment>
+    </item>
+    <item name="numProc" type="uint8">
+      <comment>Numero de procesador del 68000</comment>
+    </item>
+    <item name="estadoGW_68" type="E_EST_OPERATIVO">
+      <comment>Estado del procesador 68000</comment>
+    </item>
+    <item name="estadoGW_68Dual" type="E_EST_OPERATIVO">
+      <comment>Estado del procesador 68000 dual</comment>
+    </item>
+  </struct>
+  <struct name="ESTADO_HW_ENLACE">
+    <item name="tipo" type="uint8" source="E_TIPO_ENLACE">
+      <comment>Tipo de enlace </comment>
+    </item>
+    <item name="estado" type="uint8" source="E_ESTADO_ENLACE">
+      <comment>Estado del enlace</comment>
+    </item>
+  </struct>
+  <struct name="ESTADO_SUPERVISION_ENLACE">
+    <item name="id" type="uint16">
+      <comment>Id de enlace</comment>
+    </item>
+    <item name="estado" type="uint8">
+      <comment>Estado del enlace</comment>
+    </item>
+  </struct>
+  <struct name="SUP_GW">
+    <comment>Gateway</comment>
+    <item name="ppal_rsva" type="E_EST_OPERATIVO">
+      <comment>Estado principal / reserva</comment>
+    </item>
+    <item name="proc" type="uint8">
+      <comment>Estado procesador (Ver + abajo su descripción)</comment>
+    </item>
+    <item name="alarm" type="uint8">
+      <comment>Estado alarmas procesador (Ver + abajo su descripción)</comment>
+    </item>
+    <item name="estHw" type="ESTADO_HW_GENERAL"/>
+    <item name="enlace" type="ESTADO_HW_ENLACE">
+      <comment>Estado de enlaces del GW (Solo para presencias GW)</comment>
+      <dimension>
+        <macro ref="NUM_ENLACES_GW"/>
+      </dimension>
+    </item>
+  </struct>
+  <struct name="SUP_TMCS">
+    <comment>TMCS only used in Linux OS</comment>
+    <item name="idConfig" type="uint16">
+      <comment>ID_CONFIG  (2 Bytes)</comment>
+    </item>
+    <item name="subIdConfig" type="uint16">
+      <comment>SUB_ID_CONFIG  (2 Bytes)</comment>
+    </item>
+    <item name="idEmerge" type="uint16">
+      <comment>ID_EMERGENCY (2 Bytes)</comment>
+    </item>
+    <item name="idSectorisation" type="uint16">
+      <comment>ID_SECTORISATION (2 Bytes)</comment>
+    </item>
+  </struct>
+  <struct name="MSG_CONFIG_IMPLANTADA">
+    <item name="numSesion" type="uint32">
+      <comment>Numero de sesion</comment>
+    </item>
+    <item name="nomConfig" type="int8">
+      <comment>Nombre de la configuración</comment>
+      <dimension>
+        <macro ref="NMAX_NOMBRE_CONFIG"/>
+      </dimension>
+    </item>
+    <item name="id" type="uint32">
+      <comment>id de la configuración</comment>
+    </item>
+    <item name="subId" type="uint32">
+      <comment>subid de la configuración</comment>
+    </item>
+    <item name="actual" type="int8">
+      <comment>(1) indica configuración actual, (0) indica configuración de emergencia</comment>
+    </item>
+  </struct>
+  <struct name="SUP_FICH_CONF">
+    <item name="id" type="int32">
+      <comment>identificador de la configuración</comment>
+    </item>
+    <item name="subId" type="int32">
+      <comment>identificador auxiliar de la configuración</comment>
+    </item>
+    <item name="CRC" type="uint32">
+      <comment>CRC del fichero de configuración descomprimido</comment>
+    </item>
+  </struct>
+  <struct name="INF_CRC_FICHEROS">
+    <item name="supFichConfHw" type="SUP_FICH_CONF">
+      <comment>Información de ID, subID y CRC del fichero de config</comment>
+    </item>
+    <item name="supFichConfLog" type="SUP_FICH_CONF">
+      <comment>Información de ID, subID y CRC del fichero de config</comment>
+    </item>
+    <item name="supFichConfLogSectA" type="SUP_FICH_CONF">
+      <comment>Información de ID, subID y CRC del fichero de config. LogSectA</comment>
+    </item>
+    <item name="supFichConfLogSectB" type="SUP_FICH_CONF">
+      <comment>Información de ID, subID y CRC del fichero de config. LogSectB</comment>
+    </item>
+  </struct>
+  <struct name="MSG_SUPER">
+    <parser>MSG_TH * pMSG_TH = (MSG_TH *)(((char*) &amp;t) - offsetof(MSG_TH, super));</parser>
+    <argument type="uint32">pMSG_TH-&gt;cab.idOrigen.tipoEq</argument>
+    <item name="id" type="uint32">
+      <comment>Id de puesto, gateway o enlace</comment>
+    </item>
+    <item name="nomPuesto" type="int8">
+      <comment>Nombre del puesto</comment>
+      <dimension>
+        <macro ref="MAX_NOMBRE_PUESTO"/>
+      </dimension>
+    </item>
+    <item name="estado" type="uint8">
+      <comment>Estado TMCS A(Activo) R(Reserva) C(Cliente)  00h(Activo)</comment>
+    </item>
+    <union greater="enlace">
+      <item name="gw" type="SUP_GW">
+        <when source="pMSG_TH-&gt;cab.idOrigen.tipoEq">EQ_GATEWAY</when>
+        <comment>Parte de supervision especifica gateway</comment>
+        <comment>CAB_MSG_TH::idOrigen.tipoEq</comment>
+      </item>
+      <item name="enlace" type="ESTADO_SUPERVISION_ENLACE">
+        <when source="pMSG_TH-&gt;cab.idOrigen.tipoEq">EQ_NULO</when>
+        <comment>Parte de supervision especifica puestos</comment>
+        <dimension>
+          <macro ref="NUM_ENLACES_GW"/>
+        </dimension>
+      </item>
+      <item name="tmcs" type="SUP_TMCS">
+        <when source="pMSG_TH-&gt;cab.idOrigen.tipoEq">EQ_SUPERV /*&amp;&amp; !isWindows()*/</when>
+        <comment>Parte de supervision especifica del TMCS !isWindows()</comment>
+      </item>
+      <item name="tmcsr" type="SUP_TMCS">
+        <when source="pMSG_TH-&gt;cab.idOrigen.tipoEq">EQ_SUPERR /*&amp;&amp; !isWindows()*/</when>
+        <comment>Parte de supervision especifica del TMCS -- !isWindows()</comment>
+      </item>
+      <item name="pues" type="SUP_PUES">
+        <comment>Parte de supervision especifica puestos</comment>
+      </item>
+      <!-- ESTADO_SUPERVISION_ENLACE enlace[NUM_ENLACES_GW]; (no utilizado en estadísticas) -->
+    </union>
+    <item name="sistRd" type="int8">
+      <comment>Valores:  SISTEMA_A = 'A',  SISTEMA_B = 'B',  SISTEMA_AYB = 'C'</comment>
+    </item>
+    <item name="sistTf" type="int8">
+      <comment>Valores:  SISTEMA_A = 'A',  SISTEMA_B = 'B',  SISTEMA_AYB = 'C'</comment>
+    </item>
+    <item name="mantenimiento" type="uint8" source="E_SINO">
+      <comment>Estado puesto en mantenimiento - 1 (Si), 0 (No)</comment>
+    </item>
+    <item name="estadoConfigurado" type="int8">
+      <comment>Indica que tipo de TMCS es. Puede ser ‘S’ (para servidor, sea principal o reserva) o ‘C’ (para cliente).</comment>
+    </item>
+    <item name="estadoSectorizado" type="uint8" source="E_SINO">
+      <comment>Indica si el gw ha recibido la sectoriz o no - 1(si) 0(no)</comment>
+    </item>
+    <item name="estadoSelFreqEmer" type="uint8" source="E_SINO">
+      <comment>Est de seleccion de frecuencias de emergencia - 1(si) 0(no)</comment>
+    </item>
+    <item name="idGwSimulado" type="uint8">
+      <comment>0 (No gwsimu) Los puestos y los gateways dicen si hace de gwSimulados y el id del gwSimulado</comment>
+    </item>
+    <item name="infCrcEmer" type="INF_CRC_FICHEROS"/>
+    <item name="infCrcAct" type="INF_CRC_FICHEROS"/>
+    <item name="estEthernet0" type="uint8">
+      <comment>0 Estado de la boca de LAN 0(2 -&gt; conectado, !=2 -&gt; desconectado)</comment>
+    </item>
+    <item name="estEthernet1" type="uint8">
+      <comment>0 Estado de la boca de LAN 1(2 -&gt; conectado, !=2 -&gt; desconectado)</comment>
+    </item>
+  </struct>
+  <struct name="PUESTOS_INTEGRANTES">
+    <item name="numero" type="uint32">
+      <comment>Numero puestos que integran el ejercicio</comment>
+    </item>
+    <item name="idPuesto" type="uint8">
+      <comment>Puestos</comment>
+      <dimension limit="numero">
+        <macro ref="NMAX_PUESTOS"/>
+      </dimension>
+    </item>
+  </struct>
+  <struct name="GATEWAYS_INTEGRANTES">
+    <item name="numero" type="uint32">
+      <comment>Numero gateways que integran el ejercicio</comment>
+    </item>
+    <item name="idGateway" type="uint8">
+      <comment>gateways</comment>
+      <dimension limit="numero">
+        <macro ref="NMAX_GATEWAYS"/>
+      </dimension>
+    </item>
+  </struct>
+  <struct name="DAT_FICH_CONFIG">
+    <item name="numBloques" type="uint32">
+      <comment>Numero total de bloques (n)</comment>
+    </item>
+    <item name="numBytes" type="uint32">
+      <comment>Numero de bytes del fichero de configuración</comment>
+    </item>
+    <item name="bloque" type="uint32">
+      <comment>Numero de bloque tx/rx (1 .... n)</comment>
+    </item>
+    <item name="numBytesBloque" type="uint32">
+      <comment>Numero de bytes del bloque tx/rx (por defecto 256 bytes, excepto el ultimo)</comment>
+    </item>
+    <item name="nombreFichero" type="int8">
+      <dimension>
+        <macro ref="NMAX_NOMBRE_FICHERO"/>
+      </dimension>
+    </item>
+    <item name="crcFichero" type="uint32">
+      <comment>CRC del fichero que se va a enviar</comment>
+    </item>
+    <item name="idFichero" type="int32"/>
+    <item name="subidFichero" type="int32"/>
+  </struct>
+  <struct name="MSG_CONFIG_INF_FICH_CONFIG">
+    <!--<item name="idConf" type="uint32">
+                        <comment>Id la configuración</comment>
+                </item>-->
+    <item name="numSesion" type="uint32">
+      <comment>Número de sesion</comment>
+    </item>
+    <item name="fich" type="DAT_FICH_CONFIG"/>
+    <item name="puestosIntegrantes" type="PUESTOS_INTEGRANTES"/>
+    <item name="gatewaysIntegrantes" type="GATEWAYS_INTEGRANTES"/>
+  </struct>
+  <struct name="MSG_CONFIG_FICH_CONFIG">
+    <!--<item name="idConf" type="uint32">
+                        <comment>Id la configuración</comment>
+                </item>-->
+    <item name="numSesion" type="uint32">
+      <comment>Numero de sesion</comment>
+    </item>
+    <item name="fichCorrecto" type="uint32">
+      <comment>En la respuesta del fichero de configuración:
+               * True (1):  Bien, se ha recibido bien el fichero
+               * False (0): Mal, se ha recibido mal el fichero</comment>
+    </item>
+    <item name="fich" type="DAT_FICH_CONFIG"/>
+    <!--<item name="numBloques" type="uint32">
+                        <comment>Numero total de bloques (n)</comment>
+                </item>
+                <item name="numBytes" type="uint32">
+                        <comment>Numero de bytes del fichero de configuración</comment>
+                </item>
+                <item name="bloque" type="uint32">
+                        <comment>Numero de bloque tx/rx (1 .... n)</comment>
+                </item>
+                <item name="numBytesBloque" type="uint32">
+                        <comment>Numero de bytes del bloque tx/rx (por defecto 256 bytes, excepto el ultimo)</comment>
+                </item>-->
+    <item name="byte" type="uint8">
+      <comment>Bytes del fichero</comment>
+      <dimension>
+        <macro ref="NMAX_BYTES_BLOQUE"/>
+      </dimension>
+    </item>
+    <!--<item name="nombreFichero" type="int8">
+                        <comment>Nombre del fichero de configuración</comment>
+                        <dimension>
+                                <macro ref="NMAX_NOMBRE_FICHERO"/>
+                        </dimension>
+                </item>-->
+  </struct>
+  <struct name="MSG_ENVIA_TABLA">
+    <comment>Subestructura de mensaje de envío de tabla de sectorización</comment>
+    <item name="nombreTabla" type="int8">
+      <dimension>
+        <macro ref="NMAX_NOMBRE_TABLA"/>
+      </dimension>
+    </item>
+    <item name="sistema" type="int8"/>
+    <item name="numBloques" type="uint8">
+      <comment>Numero de bloques total del mensaje</comment>
+    </item>
+    <item name="bloque" type="uint8">
+      <comment>Numero que identifica a este mensaje</comment>
+    </item>
+    <item name="bufferTabla" type="uint8">
+      <dimension>
+        <macro ref="NMAX_TAM_TABLA"/>
+      </dimension>
+    </item>
+    <comment>Para mensajes M_ENVIA_TABLA</comment>
+  </struct>
+  <struct name="MSG_ARRANQUE_CONFIG">
+    <comment>Subestructura de mensaje de arranque</comment>
+    <!--<item name="idConf" type="uint32">
+                        <comment>Id la configuración</comment>
+                </item>-->
+    <item name="numSesion" type="uint32">
+      <comment>Numero de sesion</comment>
+    </item>
+    <item name="infCrc" type="INF_CRC_FICHEROS">
+      <comment>Información de Id y CRC de los ficheros</comment>
+    </item>
+    <item name="puestosIntegrantes" type="PUESTOS_INTEGRANTES"/>
+    <item name="gatewaysIntegrantes" type="GATEWAYS_INTEGRANTES"/>
+    <item name="sistRd" type="int8"/>
+    <item name="sistTf" type="int8"/>
+    <!--<item name="subIdConf" type="uint32">
+                        <comment>SubId de la configuración</comment>
+                </item>
+                <item name="ConfigActual" type="uint8">
+                        <comment>Config Actual(1)  o Config Emergencia(0)</comment>
+                </item>
+                <item name="idTMCS" type="uint8">
+                        <comment>Identificador de TMCS que ha mandado la config</comment>
+                </item>-->
+  </struct>
+  <struct name="MSG_SECTORIZA">
+    <comment>Subestructura del mensaje de sectorización</comment>
+    <item name="idSectorizacion" type="uint32">
+      <comment>Numero que identifica la sectorizacion implantada</comment>
+    </item>
+    <item name="procedencia" type="E_PROCEDENCIA_SECTORIZ" func="ntoh">
+      <comment>Procedencia sectorizacion</comment>
+    </item>
+    <item name="motivo" type="E_MOTIVO_SECTORIZ" func="ntoh">
+      <comment>Motivo por el que se envía la sectorización</comment>
+    </item>
+    <item name="Estado" type="uint8">
+      <comment>Sectorizacion Aceptada(1) o Rechazada (0)</comment>
+    </item>
+    <item name="causa" type="int8">
+      <comment>Causa de rechazo de la sectorización</comment>
+      <dimension>
+        <macro ref="NMAX_CARAC_CAUSA"/>
+      </dimension>
+    </item>
+    <!--<item name="idTMCS" type="uint8">
+                        <comment>Identificador de TMCS que ha mandado la sectoriz</comment>
+                </item>-->
+    <comment>Para mensaje M_SECTORIZA</comment>
+  </struct>
+  <struct name="SAM_timeb">
+    <item name="time" type="time_t">
+      <comment>In Windows, define _USE_32BIT_TIME_T for the type to be a 32 bits integer</comment>
+    </item>
+    <item name="millitm" type="uint16"/>
+    <item name="timezone" type="int16"/>
+    <item name="dstflag" type="int16"/>
+  </struct>
+  <struct name="MSG_DATETIME_SG">
+    <comment>Subestructura mensaje de fecha y hora</comment>
+    <item name="datetime" type="SAM_timeb"/>
+  </struct>
+  <struct name="ABO_PUE_TEL_EST">
+    <comment>Subestructura de los mensajes de comunicaciones de telefonía y radio</comment>
+    <item name="tipoEq" type="uint8" source="E_TIPO_EQUIPO_EST">
+      <comment>TIPO EQUIPO (PUES o GW) (1 Byte)</comment>
+    </item>
+    <union>
+      <item name="tipoGw" type="uint8" source="E_TIPO_GATEWAY">
+        <when source="tipoEq">EQ_EST_GATEWAY</when>
+        <comment>TIPO de GATEWAY (1 Byte)</comment>
+      </item>
+      <item name="tipoPues" type="uint8" source="E_TIPO_PUESTO">
+        <comment>TIPO de PUESTO (1 Byte)</comment>
+      </item>
+    </union>
+    <item name="idEq" type="uint16" table="T_PUESTOS/T_GATEWAYS">
+      <comment>ID EQUIPO(T_PUESTOS/T_GATEWAYS) (2 Bytes)</comment>
+    </item>
+    <union>
+      <item name="NumMicroSwitchGw" type="uint8">
+        <when source="tipoEq">EQ_EST_GATEWAY</when>
+        <comment>NUMERO MICROSWITH para GW (1 Byte)</comment>
+      </item>
+      <item name="tipoAbon" type="uint8" source="E_TIPO_ABONADO_INTERNO">
+        <comment>TIPO ABONADO para puestos (1 Byte)</comment>
+      </item>
+    </union>
+    <!-- CAMBIO? -->
+    <union>
+      <item name="idEnl" type="uint16" table="T_ENL">
+        <when source="tipoEq">EQ_EST_GATEWAY</when>
+        <comment>TARJETA GATEWAY (2 Bytes)</comment>
+      </item>
+      <item name="idAbon" type="uint16" table="T_ABON">
+        <comment>ID ABONADO (2 Bytes)</comment>
+      </item>
+    </union>
+    <item name="strAbon" type="int8">
+      <comment>NOMBRE ABONADO (20 Bytes)</comment>
+      <dimension>
+        <macro ref="LNG_NOM_ABON_EST"/>
+      </dimension>
+    </item>
+    <item name="slotGw" type="uint8">
+      <comment>SLOT TARJETA GATEWAY (1 Byte)</comment>
+    </item>
+    <union>
+      <item name="tipoTarjetaGw" type="uint8" source="E_TIPO_ENLACE">
+        <when source="tipoEq">EQ_EST_GATEWAY</when>
+        <comment>TIPO DE TARJETA GW (1 Byte)</comment>
+        <comment>Con el tipo de tarjeta se determinará el tipo de red a través del que se hace una llamada:</comment>
+        <comment>- Redes PSTN (públicas) -&gt; EYMDTMF, PABX, E1, BRI, FXO,  ISDN_ST</comment>
+        <comment>- Redes AGVN (red entre centros de control) -&gt; R2, QSIG, N5</comment>
+        <comment>- Redes AGVN punto a punto (TFU/FXS, BL, BC, EYM, LCE)</comment>
+      </item>
+      <item name="tipoAbonSimple_Integrado" type="uint8">
+        <comment>ABONADO SIMPLE/INTEGRADO (1 Byte)</comment>
+      </item>
+    </union>
+    <item name="idCentro" type="uint16" table="T_CENT">
+      <comment>ID CENTRO (2 Bytes). Identificador del centro(o red) origen/destino de la llamada</comment>
+    </item>
+    <item name="pref" type="uint8">
+      <comment>PREFIJO (5 Bytes). Prefijo abonado origen/destino de la llamada (Puede ser un campo vacio)</comment>
+      <dimension>
+        <macro ref="LNG_PREF_EST"/>
+      </dimension>
+    </item>
+    <item name="codigo" type="int8">
+      <comment>CODIGO (20 Bytes). Código abonado origen/destino de la llamada (puede ser el ATS o el público)</comment>
+      <dimension>
+        <macro ref="N_MAX_DIG_COD"/>
+      </dimension>
+    </item>
+    <item name="estComu" type="uint8" source="E_EST_TF">
+      <comment>ESTADO DE LA COMUNICACION (1 Byte)</comment>
+    </item>
+    <item name="estComuAnt" type="uint8" source="E_EST_TF">
+      <comment>ESTADO DE LA COMUNICACION ANTERIOR (1 Byte)</comment>
+    </item>
+    <item name="subEst" type="uint8" source="E_SUBESTADO">
+      <comment>SUBESTADO ORIGEN (1 Byte)</comment>
+    </item>
+  </struct>
+  <struct name="MSG_EST_COMU_TLF">
+    <item name="subIdMens" type="uint8" source="E_SUB_ID_MSJ_TLF">
+      <comment>SUBIDENTIFICADOR  MENSAJE(1 Byte)</comment>
+    </item>
+    <item name="sistema" type="int8" source="E_SISTEMA_ABC">
+      <comment>SISTEMA (A/B/C)  (1 Byte)</comment>
+    </item>
+    <item name="idConfig" type="uint16">
+      <comment>ID_CONFIG  (2 Bytes)</comment>
+    </item>
+    <item name="subIdConfig" type="uint16">
+      <comment>SUB_ID_CONFIG  (2 Bytes)</comment>
+    </item>
+    <item name="sesion" type="uint8">
+      <comment>SESIÓN (1 Byte)</comment>
+    </item>
+    <item name="org" type="ABO_PUE_TEL_EST">
+      <comment>Origen llamada</comment>
+    </item>
+    <item name="des" type="ABO_PUE_TEL_EST">
+      <comment>Destino llamada</comment>
+    </item>
+    <item name="servicio" type="uint8" source="E_SERVICIO">
+      <comment>(AD/AI/LC)  (1 Byte)</comment>
+    </item>
+    <item name="prioridad" type="uint8" source="E_TIPO_PRIORIDAD_R2"/>
+    <item name="tipoRuta" type="uint8" source="E_TIPO_RUTA_EST"/>
+  </struct>
+  <struct name="ABO_PUE_RD_EST">
+    <comment>Mensajes estadisticas de comunicaciones radio</comment>
+    <item name="tipoEq" type="uint8" source="E_TIPO_EQUIPO_EST">
+      <comment>TIPO EQUIPO (PUES o GW) (1 Byte)</comment>
+    </item>
+    <union>
+      <item name="tipoGw" type="uint8" source="E_TIPO_GATEWAY">
+        <when source="tipoEq">EQ_EST_GATEWAY</when>
+        <comment>TIPO de GATEWAY (1 Byte)</comment>
+      </item>
+      <item name="tipoPues" type="uint8" source="E_TIPO_PUESTO">
+        <comment>TIPO de PUESTO (1 Byte)</comment>
+      </item>
+    </union>
+    <item name="idEq" type="uint16" table="T_PUESTOS/T_GATEWAYS">
+      <comment>ID EQUIPO(PUESTO/GATEWAY) (2 Bytes)</comment>
+    </item>
+    <union>
+      <item name="NumMicroSwitchGw" type="uint8">
+        <when source="tipoEq">EQ_EST_GATEWAY</when>
+        <comment>NUMERO MICROSWITH para GW (1 Byte)</comment>
+      </item>
+      <item name="tipoAbon" type="uint8" source="E_TIPO_ABONADO_INTERNO">
+        <comment>TIPO ABONADO para puestos (1 Byte)</comment>
+      </item>
+    </union>
+    <!--<union>
+                        <comment>ID ABONADO/TARJETA GATEWAY (2 Bytes)</comment>
+                        <item name="tipoTarjetaGw" type="uint8" source="E_TIPO_ENLACE">
+                                <when source="tipoEq">EQ_EST_GATEWAY</when>
+                                <comment>TIPO DE TARJETA GW (1 Byte)</comment>
+                                <comment>Con el tipo de tarjeta se determinará el tipo de red a través del que se hace una llamada:</comment>
+                                <comment>- Redes PSTN (públicas) -> EYMDTMF, PABX, E1, BRI, FXO,  ISDN_ST</comment>
+                                <comment>- Redes AGVN (red entre centros de control) -> R2, QSIG, N5</comment>
+                                <comment>- Redes AGVN punto a punto (TFU/FXS, BL, BC, EYM, LCE)</comment>
+                        </item>
+                </union>-->
+    <item name="idAbon" type="uint16" table="T_ABON">
+      <comment>ID ABONADO (2 Bytes)</comment>
+    </item>
+    <item name="tipoAbonSimple_Integrado" type="uint8">
+      <comment>TIPO DE TARJETA GW/ABONADO SIMPLE/INTEGRADO (1 Byte)</comment>
+    </item>
+    <item name="strAbon" type="int8">
+      <comment>NOMBRE ABONADO (20 Bytes)</comment>
+      <dimension>
+        <macro ref="LNG_NOM_ABON_EST"/>
+      </dimension>
+    </item>
+  </struct>
+  <struct name="CANAL_EST">
+    <item name="idFrec" type="uint16" table="T_FREC">
+      <comment>ID FRECUENCIA n (2 Bytes)</comment>
+    </item>
+    <item name="idEmpl" type="uint16" table="T_EMPL">
+      <comment>ID EMPLAZAMIENTO n (2 Bytes)</comment>
+    </item>
+    <item name="idGw" type="uint16" table="T_GATE">
+      <comment>ID GATEWAY n (2 Bytes)</comment>
+    </item>
+    <item name="idTarj" type="uint16" table="T_ENL">
+      <comment>ID TARJETA n (2 Bytes)</comment>
+    </item>
+    <item name="slot" type="uint8">
+      <comment>SLOT TARJETA n (1 Byte)</comment>
+    </item>
+    <item name="tipoTarj" type="uint8" source="E_TIPO_ENLACE">
+      <comment>TIPO TARJETA n (CR, CR_BSS, CR_BSS2) (1 Byte)</comment>
+    </item>
+    <item name="estado1" type="uint8">
+      <comment>ESTADO1 FRECUENCIA n (1 Byte)</comment>
+    </item>
+    <item name="estado2" type="uint8">
+      <comment>ESTADO2 FRECUENCIA n (1 Byte)</comment>
+    </item>
+  </struct>
+  <struct name="CANAL_BSS_EST">
+    <item name="idFrec" type="uint16" table="T_FREC">
+      <comment>ID FRECUENCIA n (2 Bytes)</comment>
+    </item>
+    <item name="idEmpl" type="uint16" table="T_EMPL">
+      <comment>ID EMPLAZAMIENTO n (2 Bytes)</comment>
+    </item>
+    <item name="idTarj" type="uint16" table="T_ENL">
+      <comment>ID TARJETA n (2 Bytes)</comment>
+    </item>
+    <item name="slot" type="uint8">
+      <comment>SLOT TARJETA n (1 Byte)</comment>
+    </item>
+    <item name="tipoTarj" type="uint8" source="E_TIPO_ENLACE">
+      <comment>TIPO TARJETA n (CR, CR_BSS, CR_BSS2)</comment>
+    </item>
+    <item name="calFrec" type="uint16">
+      <comment>CALIDAD FRECUENCIA n (2 Bytes)</comment>
+    </item>
+    <item name="RelSenalRuido" type="uint16">
+      <comment>RELACION SNR FRECUENCIA n (2 Bytes)</comment>
+    </item>
+  </struct>
+  <struct name="MSG_EST_COMU_RAD">
+    <item name="subIdMens" type="uint8" source="E_SUB_ID_MSJ_RAD">
+      <comment>SUBIDENTIFICADOR  MENSAJE RADIO(1 Byte)</comment>
+    </item>
+    <item name="sistema" type="int8" source="E_SISTEMA_ABC">
+      <comment>SISTEMA (A/B/C)  (1 Byte)</comment>
+    </item>
+    <item name="idConfig" type="uint16">
+      <comment>ID_CONFIG  (2 Bytes)</comment>
+    </item>
+    <item name="subIdConfig" type="uint16">
+      <comment>SUB_ID_CONFIG  (2 Bytes)</comment>
+    </item>
+    <item name="sesion" type="uint8">
+      <comment>SESIÓN (1 Byte)</comment>
+    </item>
+    <item name="org" type="ABO_PUE_RD_EST">
+      <comment>Origen llamada</comment>
+    </item>
+    <item name="estFuncion" type="uint8">
+      <comment>ESTADO FUNCIÓN (1 Byte)</comment>
+    </item>
+    <item name="numCanales" type="uint8">
+      <comment>NÚMERO DE CANALES rellenados de la estructura siguiente(1 Byte)</comment>
+    </item>
+    <union>
+      <item name="canalBSS" type="CANAL_BSS_EST">
+        <when source="subIdMens">CALIDAD_BSS</when>
+        <dimension limit="numCanales">
+          <macro ref="NTITFZMU"/>
+        </dimension>
+      </item>
+      <item name="canal" type="CANAL_EST">
+        <dimension limit="numCanales">
+          <macro ref="NTITFZMU"/>
+        </dimension>
+      </item>
+    </union>
+  </struct>
+  <struct name="MSG_CONFIG_SESION">
+    <item name="numSesion" type="uint32"/>
+    <item name="infCrc" type="INF_CRC_FICHEROS"/>
+  </struct>
+  <struct name="MSG_ENLACE_SACTA">
+    <item name="estado" type="E_ESTADO_ENLACE_SACTA"/>
+  </struct>
+  <struct name="MSG_MEDIDAS_RED">
+    <comment>Respuesta a la petición del listado de medidas de red</comment>
+    <item name="ipdvDigital" type="uint8" source="E_MEDIDAS_RED">
+      <comment>Medida IPDV Digital</comment>
+    </item>
+    <item name="paquetesPerdidos" type="uint8" source="E_MEDIDAS_RED">
+      <comment>Medida Perdida de paquetes</comment>
+    </item>
+  </struct>
+  <struct name="MSG_ESTADO_RED">
+    <item name="estadoLanGestion" type="uint8" source="E_ESTADO_LAN">
+      <comment>Estado de la LAN de Gestión (1 byte)</comment>
+    </item>
+    <item name="estadoLanVoz" type="uint8" source="E_ESTADO_LAN">
+      <comment>Estado de la LAN de Voz (1 byte)</comment>
+    </item>
+  </struct>
+  <struct name="RES_MEDIDA">
+    <comment>La estructura RES_MEDIDA del resultado de pruebas de audio, con el resultado de una medida</comment>
+    <item name="id" type="uint8" source="E_TIPO_MEDIDA">
+      <comment>Identificador de la medida</comment>
+    </item>
+    <item name="valor" type="float">
+      <comment>Valor de la medida para el canal/bucle</comment>
+    </item>
+    <item name="medida" type="uint8" source="E_RES_MEDIDA">
+      <comment>Clasificación del resultado</comment>
+    </item>
+  </struct>
+
+  <struct name="MEDIDAS_CANAL_BUCLE">
+    <item name="tipoBucle" type="uint8" source="E_ID_CANAL_BUCLE">
+      <comment>Tipo de bucle o canal</comment>
+    </item>
+    <item name="numMedidas" type="uint8">
+      <comment>Numero de medidas que se van a hacer en el bucle o canal</comment>
+    </item>
+    <item name="medidas" type="uint8" source="E_TIPO_MEDIDA">
+      <comment>Numero de medidas que se van a hacer en el bucle o canal</comment>
+      <dimension limit="numMedidas">
+        <macro ref="MAX_MEDIDAS_CANAL_BUCLE"/>
+      </dimension>
+    </item>
+  </struct>
+  <struct name="MSG_INTERFAZ_BATERIA">
+    <item name="idSesion" type="uint32">
+      <comment>Identificador de la sesión del usuario</comment>
+    </item>
+    <item name="idBateria" type="uint16">
+      <comment>Identificador de la batería de pruebas a la que estan asociadas las pruebas de la posición</comment>
+    </item>
+    <item name="idGW" type="uint16">
+      <comment>Identificador del GW al que pertenece el interfaz (2 bytes)</comment>
+    </item>
+    <item name="idInterfaz" type="uint16">
+      <comment>Identificador del interfaz (2 bytes)</comment>
+    </item>
+    <item name="slot" type="uint8">
+      <comment>Slot que ocupa el interfaz en el GW (1 byte)</comment>
+    </item>
+    <item name="tipo" type="uint8" source="E_TIPO_ENLACE">
+      <comment>Tipo de interfaz sobre el que se realizó la medida (1 byte)</comment>
+    </item>
+    <item name="numCanales" type="uint8">
+      <comment>Número de canales a medir en el interfaz</comment>
+    </item>
+    <item name="canales" type="MEDIDAS_CANAL_BUCLE">
+      <comment>Estructura MED_CANAL repetida numCanales veces</comment>
+      <dimension limit="numCanales">
+        <macro ref="MAX_CANALES_INTERFAZ"/>
+      </dimension>
+    </item>
+  </struct>
+  <struct name="MSG_POSICION_BATERIA">
+    <item name="idSesion" type="uint32">
+      <comment>Identificador de la sesión del usuario</comment>
+    </item>
+    <item name="idBateria" type="uint16">
+      <comment>Identificador de la batería de pruebas a la que estan asociadas las pruebas de la posición</comment>
+    </item>
+    <item name="idPosicion" type="uint16">
+      <comment>Identificador de la posición</comment>
+    </item>
+    <item name="numBucles" type="uint8">
+      <comment>Numero de bucles para los que se definen pruebas</comment>
+    </item>
+    <item name="bucles" type="MEDIDAS_CANAL_BUCLE">
+      <comment>Estructura que contiene las medidas que se haran sobre los bucles</comment>
+      <dimension limit="numBucles">
+        <macro ref="MAX_BUCLES_POSICION"/>
+      </dimension>
+    </item>
+  </struct>
+  <struct name="MSG_RED_SAM">
+    <comment>EvtSAM_EstadisticasDeMedidasRed.- El S-SAM envía las medidas realizadas de red al S-SeeSCV y al S-TMCs.</comment>
+    <item name="fecha" type="SAM_timeb">
+      <comment>Fecha de inicio de la ejecución de las pruebas</comment>
+    </item>
+    <item name="idCentro" type="uint16">
+      <comment>Identificador del centro en el que se ejecutó la BdP</comment>
+    </item>
+    <item name="idConfig" type="uint16">
+      <comment>ID de la configuración bajo la cual se ejecutó la BdP (2 bytes)</comment>
+    </item>
+    <item name="subIdConfig" type="uint16">
+      <comment>SubID de la configuración bajo la cual se ejecutó la BdP (2 bytes)</comment>
+    </item>
+    <item name="numMedidas" type="uint8">
+      <comment>Número de medidas de red realizadas</comment>
+    </item>
+    <item name="medida" type="RES_MEDIDA">
+      <comment>Estructura RES_MEDIDA repetida numMedidas veces</comment>
+      <dimension limit="numMedidas">
+        <macro ref="MAX_MEDIDAS_RED"/>
+      </dimension>
+    </item>
+  </struct>
+  <struct name="MED_CANAL_BUCLE">
+    <item name="id" type="uint8" source="E_ID_CANAL_BUCLE">
+      <comment>Id. del bucle</comment>
+    </item>
+    <item name="numMedidas" type="uint8">
+      <comment>Número de medidas realizadas sobre el bucle</comment>
+    </item>
+    <item name="medida" type="RES_MEDIDA">
+      <comment>Estructura RES_MEDIDA repetida numMedidas veces</comment>
+      <dimension limit="numMedidas">
+        <macro ref="MAX_MEDIDAS_CANAL_BUCLE"/>
+      </dimension>
+    </item>
+  </struct>
+  <struct name="MED_POSICION">
+    <item name="id" type="uint16">
+      <comment>Identificador de la posición (2 bytes)</comment>
+    </item>
+    <item name="ip" type="uint32">
+      <comment>Dirección IP de la posición (4 bytes)</comment>
+    </item>
+    <item name="resultadoPos" type="uint8" source="E_RESULTADO">
+      <comment>Clasificación del resultado general de la posición</comment>
+    </item>
+    <item name="numBucles" type="uint8">
+      <comment>Número de bucles medidos en la posición</comment>
+    </item>
+    <item name="bucle" type="MED_CANAL_BUCLE">
+      <comment>Estructura MED_CANAL_BUCLE repetida numBucles veces</comment>
+      <dimension limit="numBucles">
+        <macro ref="MAX_BUCLES_POSICION"/>
+      </dimension>
+    </item>
+  </struct>
+  <struct name="MED_INTERFAZ">
+    <item name="idInterfaz" type="uint16">
+      <comment>Identificador del interfaz (2 bytes)</comment>
+    </item>
+    <item name="idGW" type="uint16">
+      <comment>Identificador de usuario del GW al que pertenece el interfaz (2 bytes)</comment>
+    </item>
+    <item name="slot" type="uint8">
+      <comment>Slot que ocupa el interfaz en el GW (1 byte)</comment>
+    </item>
+    <item name="tipo" type="uint8">
+      <comment>Tipo de interfaz sobre el que se realizó la medida (1 byte)</comment>
+    </item>
+    <item name="resultadoInt" type="uint8" source="E_RESULTADO">
+      <comment>Clasificación del resultado general de la interfaz</comment>
+    </item>
+    <item name="numCanales" type="uint8">
+      <comment>Número de canales medidos en el interfaz</comment>
+    </item>
+    <item name="canal" type="MED_CANAL_BUCLE">
+      <comment>Estructura MED_CANAL_BUCLE repetida numCanales veces</comment>
+      <dimension limit="numCanales">
+        <macro ref="MAX_CANALES_INTERFAZ"/>
+      </dimension>
+    </item>
+  </struct>
+  <struct name="MSG_AUDIO_SAM_POSICION">
+    <item name="id" type="uint16">
+      <comment>Identificador de la Batería de Pruebas</comment>
+    </item>
+    <item name="fecha" type="SAM_timeb">
+      <comment>Fecha de inicio de la ejecución de las pruebas</comment>
+    </item>
+    <item name="idCentro" type="uint16">
+      <comment>Identificador del centro en el que se ejecutó la BdP</comment>
+    </item>
+    <item name="idConfig" type="uint16">
+      <comment>ID de la configuración bajo la cual se ejecutó la BdP (2 bytes)</comment>
+    </item>
+    <item name="subIdConfig" type="uint16">
+      <comment>SubID de la configuración bajo la cual se ejecutó la BdP (2 bytes)</comment>
+    </item>
+    <item name="posicion" type="MED_POSICION">
+      <comment>Estructura con el resultado de las medidas realizadas para una posición</comment>
+    </item>
+  </struct>
+  <struct name="MSG_AUDIO_SAM_INTERFAZ">
+    <item name="id" type="uint16">
+      <comment>Identificador de la Batería de Pruebas</comment>
+    </item>
+    <item name="fecha" type="SAM_timeb">
+      <comment>Fecha de inicio de la ejecución de las pruebas</comment>
+    </item>
+    <item name="idCentro" type="uint16">
+      <comment>Identificador del centro en el que se ejecutó la BdP</comment>
+    </item>
+    <item name="idConfig" type="uint16">
+      <comment>ID de la configuración bajo la cual se ejecutó la BdP (2 bytes)</comment>
+    </item>
+    <item name="subIdConfig" type="uint16">
+      <comment>SubID de la configuración bajo la cual se ejecutó la BdP (2 bytes)</comment>
+    </item>
+    <item name="interfaz" type="MED_INTERFAZ">
+      <comment>Estructura con el resultado de las medidas sobre los interfaces</comment>
+    </item>
+  </struct>
+  <struct name="MSG_PRES_VRP">
+    <item name="estadoFTP" type="uint8" source="E_ESTADO_FTP">
+      <comment>Estado del servidor FTP (1 byte)</comment>
+    </item>
+    <item name="espacioTotal" type="uint32">
+      <comment>Espacio total en en MB (4 bytes)</comment>
+    </item>
+    <item name="espacioOcupado" type="uint32">
+      <comment>	Espacio ocupado en disco en MB (4 bytes)</comment>
+    </item>
+  </struct>
+  <struct name="MSG_PRES_ESTAD">
+    <item name="estadoWeb" type="uint8" source="E_ESTADO_GENERAL">
+      <comment>Estado del servidor Web (1 byte)</comment>
+    </item>
+    <item name="estadoBd" type="uint8" source="E_ESTADO_GENERAL">
+      <comment>Estado del servidor BD (1 byte)</comment>
+    </item>
+    <item name="estadoServer" type="uint8" source="E_ESTADO_GENERAL">
+      <comment>Estado del servidor PHP (1 byte)</comment>
+    </item>
+    <item name="estadoCluster" type="uint8" source="E_ESTADO_CLUSTER">
+      <comment>Estado del cluster de servidores (1 byte)</comment>
+    </item>
+    <item name="estadoBackup" type="uint8" source="E_ESTADO_BACKUP">
+      <comment>Estado de los backups (1 byte)</comment>
+    </item>
+    <item name="espacioTotal" type="uint32">
+      <comment>Espacio total en disco local o cabina de discos en MB (4 bytes)</comment>
+    </item>
+    <item name="espacioOcupado" type="uint32">
+      <comment>Espacio ocupado en disco local o cabina de discos en MB (4 bytes)</comment>
+    </item>
+  </struct>
+  <struct name="DAT_INICIO_SESION_SAM">
+    <item name="rolUsuario" type="int8">
+      <dimension>
+        <macro ref="MAX_NOMBRE_ABONADO"/>
+      </dimension>
+      <comment>Rol del ususario que inicia la sesion</comment>
+    </item>
+  </struct>
+  <struct name="MSG_BATERIA_POR_ID">
+    <item name="idSesion" type="uint32">
+      <comment>Identificador de la sesion del usuario que hace la consulta de la bateria de pruebas</comment>
+    </item>
+    <item name="idBateria" type="uint16">
+      <comment>Identificador de la bateria de pruebas que se quiere consultar</comment>
+    </item>
+  </struct>
+  <struct name="MSG_ENVIA_BATERIA_VACIA">
+    <item name="idSesion" type="uint32">
+      <comment>Identificador de la sesion del usuario que hace la consulta de la bateria de pruebas</comment>
+    </item>
+    <item name="nombre" type="int8">
+      <comment>Nombre de la bateria de pruebas a crear</comment>
+      <dimension>
+        <macro ref="MAX_NOMBRE_BATERIA"/>
+      </dimension>
+    </item>
+    <item name="fechaCreacion" type="SAM_timeb">
+      <comment>Fecha de creacion de la bateria de pruebas</comment>
+    </item>
+    <item name="idCentro" type="uint16">
+      <comment>Identificador del centro en el que se ejecutó la BdP</comment>
+    </item>
+    <item name="idConfig" type="uint16">
+      <comment>ID de la configuración bajo la cual se ejecutó la BdP (2 bytes)</comment>
+    </item>
+    <item name="subIdConfig" type="uint16">
+      <comment>SubID de la configuración bajo la cual se ejecutó la BdP (2 bytes)</comment>
+    </item>
+  </struct>
+  <struct name="MSG_ID_SESION">
+    <item name="idSesion" type="uint32">
+      <comment>Identificador de la sesion del usuario para envio de peticiones al servidor SAM</comment>
+    </item>
+  </struct>
+  <struct name="M_UMBRAL_INTERVALO">
+    <item name="rMin" type="float">
+      <comment>Umbral inferior. Usar qNan para un valor nulo.</comment>
+    </item>
+    <item name="rMax" type="float">
+      <comment>Umbral superior. Usar qNan para un valor nulo.</comment>
+    </item>
+  </struct>
+
+  <struct name="M_UMBRALES_MEDIDAS">
+    <comment>5.2.2.10.2 Medidas de Audio</comment>
+    <item name="atenuacion" type="M_UMBRAL_INTERVALO">
+      <comment>Atenuacion en funcion de la frecuencia</comment>
+    </item>
+    <item name="ruido" type="M_UMBRAL_INTERVALO">
+      <comment>Ruido del canal en reposo</comment>
+    </item>
+    <item name="distorsion" type="M_UMBRAL_INTERVALO">
+      <comment>Distorsion</comment>
+    </item>
+    <item name="retardo" type="M_UMBRAL_INTERVALO">
+      <comment>Retardo</comment>
+    </item>
+    <item name="pesq" type="M_UMBRAL_INTERVALO">
+      <comment>Indice electrico de calidad de voz</comment>
+    </item>
+    <item name="rtemporal" type="M_UMBRAL_INTERVALO">
+      <comment>Recorte temporal</comment>
+    </item>
+    <item name="eco" type="M_UMBRAL_INTERVALO">
+      <comment>Eco</comment>
+    </item>
+    <item name="diafonia" type="M_UMBRAL_INTERVALO">
+      <comment>Diafonia</comment>
+    </item>
+    <item name="ipdvAnalogico" type="M_UMBRAL_INTERVALO">
+      <comment>IPDV (Inter Packet Delay Variation) analogico</comment>
+    </item>
+    <item name="ipdvDigital" type="M_UMBRAL_INTERVALO">
+      <comment>IPDV (Inter Packet Delay Variation) digital</comment>
+    </item>
+    <item name="paquetes" type="M_UMBRAL_INTERVALO">
+      <comment>Paquetes perdidos</comment>
+    </item>
+  </struct>
+  <struct name="MSG_UMBRALES">
+    <item name="idSesion" type="uint32">
+      <comment>Identificador de la sesion del usuario</comment>
+    </item>
+    <item name="umbrales" type="M_UMBRALES_MEDIDAS">
+      <comment>Numero de medidas de red a realizar</comment>
+    </item>
+  </struct>
+  <struct name="MSG_EJECUTA_LISTA_MEDIDAS_RED">
+    <item name="idSesion" type="uint32">
+      <comment>Identificador de la sesion del usuario</comment>
+    </item>
+    <item name="numMedidasRed" type="uint8">
+      <comment>Numero de medidas de red a realizar</comment>
+    </item>
+    <item name="medidas" type="uint8" source="E_TIPO_MEDIDA">
+      <comment>Lista de medidas de red a realizar</comment>
+      <dimension limit="numMedidasRed">
+        <macro ref="MAX_MEDIDAS_RED"/>
+      </dimension>
+    </item>
+  </struct>
+  <struct name="MSG_MODIFICA_PARAMETROS">
+    <item name="idSesion" type="uint32">
+      <comment>Identificador de la sesion del usuario</comment>
+    </item>
+    <item name="numParametros" type="uint8">
+      <comment>Numero de parámetros a modificar</comment>
+    </item>
+    <item name="parametros" type="uint8">
+      <comment>Parámetros de configuración con sus valores para su modificacion</comment>
+      <dimension limit="numParametros">
+        <macro ref="NMAX_PARAMETRO"/>
+      </dimension>
+    </item>
+  </struct>
+  
+  <struct name="MSG_POSICION_SAM">
+    <comment>Peticion para solicitar al TMCS la activación o desactivacion de un equipo MEDIDAS o PATRÓN</comment>
+    <item name="activarSam" type="uint8" source="E_ON_OFF">
+      <comment>Peticion de activacion o desactivacion de la posición o el patrón en modo medición</comment>
+    </item>
+    <item name="puesto" type="IPv4">
+      <comment>Direccion IP del puesto o patrón (4 bytes)</comment>
+    </item>
+    <item name="abonado" type="uint8" source="E_ABONADO_SAM">
+      <comment>Tipo de abonado SAM: MEDIDAS o PATRÓN</comment>
+    </item>
+  </struct>
+  <struct name="MSG_RESP_POSICION">
+    <comment>Mensaje del TMCS indicando si el modo de "abonado" se ha activado correctamente o no.</comment>
+    <item name="resultado" type="uint8" source="E_ESTADO_POSICION">
+      <comment>Estado de activacion de la posición</comment>
+    </item>
+    <item name="abonado" type="uint8" source="E_ABONADO_SAM">
+      <comment>Tipo de abonado SAM: MEDIDAS o PATRÓN</comment>
+    </item>
+    <item name="motivoRechazo" type="uint8" source="E_TIPO_ERROR_SAM">
+      <comment>Error por el que la posición no se ha podido activar</comment>
+    </item>
+  </struct>
+  <struct name="MSG_INTERFAZ_MEDICION_SAM">
+    <comment>M_INTERFAZ_MEDICION_SAM.- Peticion para solicitar la activación o desactivacion de un interfaz en modo medición</comment>
+    <item name="activarMedicionSam" type="uint8" source="E_ON_OFF">
+      <comment>ACTIVAR_MEDICION_SAM.- Peticion de activacion o desactivacion del interfaz en modo medición</comment>
+    </item>
+    <item name="slot" type="uint8">
+      <comment>INTERFAZ_DESTINO.- Numero de slot del gw donde se encuentra la interfaz a medir (en caso de ISDN o QSIG se suma el número de canal 0, 1 ó 2)</comment>
+    </item>
+  </struct>
+  <struct name="MSG_RESP_MEDICION_SAM">
+    <comment>Respuesta para la activación o desactivacion de un interfaz en modo medición</comment>
+    <item name="estado" type="uint8" source="E_ON_OFF">
+      <comment>Estado en que ha quedado el interfaz tras la peticion de activacion o desactivacion del modo medición</comment>
+    </item>
+    <item name="slot" type="uint8">
+      <comment>Numero de slot del gw donde se encuentra la interfaz a medir (en caso de ISDN o QSIG se suma el número de canal 0, 1 ó 2)</comment>
+    </item>
+  </struct>
+  <struct name="MSG_SET_LLAMADA_SAM">
+    <comment>Peticion de establecimiento de la llamada SAM</comment>
+    <item name="estado" type="uint8" source="E_ON_OFF">
+      <comment>ON: establecer la llamada, OFF: finalizar la llamada</comment>
+    </item>
+    <item name="destino" type="IPv4">
+      <comment>Posición o interfaz con el que la posición patrón debe establecer la llamada</comment>
+    </item>
+  </struct>
+  <struct name="MSG_RESP_LLAMADA_SAM">
+    <comment>Respuesta para la peticion de establecimiento o finalizacion de la llamada SAM</comment>
+    <item name="estado" type="uint8" source="E_ON_OFF">
+      <comment>ON: llamada establecida, OFF: llamada no establecida</comment>
+    </item>
+    <item name="destino" type="IPv4">
+      <comment>Posición o interfaz con el que la posición patrón ha establecido la llamada</comment>
+    </item>
+  </struct>
+  <struct name="MSG_SET_BUCLE_SAM">
+    <comment>Peticion o respuesta de activacion / desactivacion de los bucles de la UGA</comment>
+    <item name="nbucle" type="uint8" source="E_ID_CANAL_BUCLE">
+      <comment>Dispositvo de la UGA cuyo bucle se quiere activar</comment>
+    </item>
+    <item name="estado" type="uint8" source="E_ON_OFF">
+      <comment>ON: activar el bucle (o bucle activado), OFF: desactivar el bucle (o bucle desactivado)</comment>
+    </item>
+  </struct>
+  <struct name="MSG_PRES_SAM">
+    <comment>Tipo de mensaje de información de estado del servidor SAM (Presencias)</comment>
+    <item name="modoSAM" type="uint8" source="E_MODO_SAM">
+      <comment>Estado de las mediciones</comment>
+    </item>
+  </struct>
+  <struct name="MSG_PRES_WATCHDOG_SAM">
+    <comment>Tipo de presencia enviados por el servidor SAM al watchdog</comment>
+    <item name="subtipo" type="E_SUBID_MSG" />
+    <item name="longId" type="int32" />
+    <item name="proceso" type="int8">
+      <dimension>
+        <macro ref="NMAX_NOMBRE_PROCESO"/>
+      </dimension>
+    </item>
+  </struct>
+  <struct name="MSG_TH">
+    <comment>Estructura mensaje general</comment>
+    <comment>Cálculo de la longitud del mensaje:</comment>
+    <comment>lngDatos = sizeof(CAB_MSG_TH) + ( sizeof(MSG_SUPER) ó sizeof(MSG_CTRL_CONFIG) ó sizeof(ESTRUCTURA_MENSAJE)) </comment>
+    <!-- <item name="dirIpDestino" type="IPv4">
+                        <comment>JA 16/07/2008</comment>
+                </item>
+                <item name="puertoDestino" type="uint16">
+                        <comment>JA 16/07/2008</comment>
+                </item>
+                <item name="lngDatos" type="uint16">
+                        <comment>JA 16/07/2008</comment>
+                </item> -->
+    <item name="cab" type="CAB_MSG_TH">
+      <comment>VER PUNTO CABECERA DE TODOS LOS MENSAJES</comment>
+    </item>
+    <union>
+      <comment>DATOS_MSG_TH --&gt; dat // En esta union está contenido el cuerpo de todos los mensajes</comment>
+      <item name="super" type="MSG_SUPER">
+        <when source="cab.idMsg">M_PRESENCIA</when>
+        <comment>Mensajes presencia</comment>
+      </item>
+        <comment>MSG_CONFIG_GLOBAL</comment>
+        <comment>Subestructura mensaje de configuración</comment>
+        <item name="sesion" type="MSG_CONFIG_SESION">
+          <when source="cab.idMsg">M_INICIO_SESION</when>
+          <comment>Para solicitar ficheros al TMCS</comment>
+        </item>
+        <item name="infFichConfig" type="MSG_CONFIG_INF_FICH_CONFIG">
+          <when source="cab.idMsg">M_INF_FICH_CONFIG</when>
+          <comment>Para mensajes M_INF_FICH_CONFIG</comment>
+        </item>
+        <item name="fichConf" type="MSG_CONFIG_FICH_CONFIG">
+          <when source="cab.idMsg">M_FICH_CONFIG</when>
+          <comment>Para mensajes M_FICH_CONFIG</comment>
+        </item>
+        <item name="arranque" type="MSG_ARRANQUE_CONFIG">
+          <when source="cab.idMsg">M_ARRANQUE</when>
+          <comment>Para mensajes M_ARRANQUE</comment>
+        </item>
+        <item name="configImplantada" type="MSG_CONFIG_IMPLANTADA">
+          <when source="cab.idMsg">M_CONFIG_IMPLANTADA</when>
+          <comment>Para mensajes M_CONFIG_IMPLANTADA</comment>
+        </item>
+      
+      <item name="enviatabla" type="MSG_ENVIA_TABLA">
+        <when source="cab.idMsg">M_ENVIA_TABLA</when>
+        <comment>Mensajes tablas sectorizacion</comment>
+      </item>
+      <item name="m_datetime_sg" type="MSG_DATETIME_SG">
+        <when source="cab.idMsg">M_DATETIME_SG</when>
+        <comment>Mensajes fecha y hora</comment>
+      </item>
+      <item name="mEstadisComuTlf" type="MSG_EST_COMU_TLF">
+        <when source="cab.idMsg">M_ESTADISTICAS_TF</when>
+        <comment>Mensajes estadisticas de comunicaciones telefonía</comment>
+      </item>
+      <item name="mEstadisComuRad" type="MSG_EST_COMU_RAD">
+        <when source="cab.idMsg">M_ESTADISTICAS_RD</when>
+        <comment>Mensajes estadisticas de comunicaciones radio</comment>
+      </item>
+      <item name="sectoriza" type="MSG_SECTORIZA">
+        <when source="cab.idMsg">M_SECTORIZA</when>
+        <comment>Mensajes sectorización (no en especificaciones 1.9-)</comment>
+      </item>
+      <item name="mEstadoConfig" type="MSG_EST_CONFIG">
+        <when source="cab.idMsg">M_ESTADO_CONFIG</when>
+        <comment>Mensajes de estado de las configuraciones</comment>
+      </item>
+      <item name="mEnlaceSacta" type="MSG_ENLACE_SACTA">
+        <when source="cab.idMsg">M_ENLACE_SACTA</when>
+        <comment>Subestructura de mensaje de información de estado del enlace con SACTA</comment>
+      </item>
+      <item name="mPresenciaSAM" type="MSG_PRES_SAM">
+        <when source="cab.idMsg">M_PRES_SAM</when>
+        <comment>EvtSAM_Presencia Tipo de mensaje de información de estado del servidor SAM a estadísticas (Presencias)</comment>
+      </item>
+      <item name="mPresenciaWatchdogSAM" type="MSG_PRES_WATCHDOG_SAM">
+        <when source="cab.idMsg">M_PRES_WATCHDOG_SAM</when>
+        <comment>Presencia del servidor SAM al Watchdog</comment>
+      </item>
+      <item name="mAckFichero" type="MSG_CONFIG_FICH_CONFIG">
+        <when source="cab.idMsg">M_ACK_FICHERO</when>
+        <comment>Tipo de mensaje de maximo numero de sesiones alcanzado en el servidor SAM</comment>
+      </item>
+      <item name="mDirIP" type="IPv4">
+        <when source="cab.idMsg">M_MAX_SESIONES_SAM</when>
+        <comment>Tipo de mensaje de maximo numero de sesiones alcanzado en el servidor SAM</comment>
+      </item>
+      <item name="mAvance" type="uint8">
+        <when source="cab.idMsg">M_PORCENTAJE_AVANCE_SAM</when>
+        <comment>Tipo de mensaje de porcentaje de avance en medidas SAM</comment>
+      </item>
+      <item name="mInicioSesionSAM" type="DAT_INICIO_SESION_SAM">
+        <when source="cab.idMsg">M_INICIO_SESION_SAM</when>
+        <comment>Tipo de mensaje de inicio de sesion en el servidor SAM</comment>
+      </item>
+      <item name="mIdSesion" type="uint32">
+        <when source="cab.idMsg">M_FIN_SESION_SAM</when>
+        <comment>Identificador de sesion</comment>
+      </item>
+      <item name="mListaBaterias" type="MSG_BATERIA_POR_ID">
+        <when source="cab.idMsg">M_LISTA_BATERIAS_SAM</when>
+        <comment>Tipo de mensaje para la consulta de la lista de baterias de pruebas</comment>
+      </item>
+      <item name="mConsultaBateria" type="MSG_BATERIA_POR_ID">
+        <when source="cab.idMsg">M_CONSULTA_BATERIA_SAM</when>
+        <comment>Tipo de mensaje para la consulta de una bateria de pruebas</comment>
+      </item>
+      <item name="mCreaBateria" type="MSG_ENVIA_BATERIA_VACIA">
+        <when source="cab.idMsg">M_CREACION_BATERIA_SAM</when>
+        <comment>Tipo de mensaje para la creacion de una bateria de pruebas</comment>
+      </item>
+      <item name="mPosicionBateria" type="MSG_POSICION_BATERIA">
+        <when source="cab.idMsg">M_POSICION_BATERIA_SAM</when>
+        <comment>Tipo de mensaje para el alta, la modificacion o el borrado de las pruebas de una posición en una bateria de pruebas</comment>
+      </item>
+      <item name="mInterfazBateria" type="MSG_INTERFAZ_BATERIA">
+        <when source="cab.idMsg">M_INTERFAZ_BATERIA_SAM</when>
+        <comment>Tipo de mensaje para el alta, la modificacion o el borrado de las pruebas de un interfaz en una bateria de pruebas</comment>
+      </item>
+      <item name="mBorraBateria" type="MSG_BATERIA_POR_ID">
+        <when source="cab.idMsg">M_BORRADO_BATERIA_SAM</when>
+        <comment>Tipo de mensaje para el borrado de una bateria de pruebas</comment>
+      </item>
+      <item name="mResultadoBateria" type="MSG_BATERIA_POR_ID">
+        <when source="cab.idMsg">M_RESULTADO_BATERIA_SAM</when>
+        <comment>Tipo de mensaje para la consulta del resultado de una bateria de pruebas</comment>
+      </item>
+      <item name="mEjecutaBateria" type="MSG_BATERIA_POR_ID">
+        <when source="cab.idMsg">M_EJECUTA_BATERIA_SAM</when>
+        <comment>Tipo de mensaje para la ejecucion de una bateria de pruebas</comment>
+      </item>
+      <item name="mCancelaBateria" type="MSG_BATERIA_POR_ID">
+        <when source="cab.idMsg">M_CANCELA_BATERIA_SAM</when>
+        <comment>Tipo de mensaje para la cancelacion de la ejecucion de una bateria de pruebas</comment>
+      </item>
+      <item name="mMedidasRed" type="MSG_ID_SESION">
+        <when source="cab.idMsg">M_LISTA_MEDIDAS_RED</when>
+        <comment>Tipo de mensaje para la consulta de las medidas RED</comment>
+      </item>
+      <item name="mEjecutaMedidasRed" type="MSG_EJECUTA_LISTA_MEDIDAS_RED">
+        <when source="cab.idMsg">M_EJECUTA_MEDIDAS_RED</when>
+        <comment>Tipo de mensaje para la ejecución de las medidas RED</comment>
+      </item>
+      <item name="mCancelaMedidasRed" type="MSG_ID_SESION">
+        <when source="cab.idMsg">M_CANCELA_MEDIDAS_RED</when>
+        <comment>Tipo de mensaje para la ejecución de las medidas RED</comment>
+      </item>
+      <item name="mConsultaUmbrales" type="MSG_UMBRALES">
+        <when source="cab.idMsg">M_CONSULTA_UMBRALES</when>
+        <comment>Tipo de mensaje para la ejecución de las medidas RED</comment>
+      </item>
+      <item name="mModificaUmbrales" type="MSG_UMBRALES">
+        <when source="cab.idMsg">M_MODIFICA_UMBRALES</when>
+        <comment>Tipo de mensaje para la ejecución de las medidas RED</comment>
+      </item>
+      <item name="mConsultaParametros" type="MSG_ID_SESION">
+        <when source="cab.idMsg">M_CONSULTA_PARAMETROS</when>
+        <comment>Tipo de mensaje para la consulta de los paramertos de configuración del SAM</comment>
+      </item>
+      <item name="mModificaParametros" type="MSG_MODIFICA_PARAMETROS">
+        <when source="cab.idMsg">M_MODIFICA_PARAMETROS</when>
+        <comment>Tipo de mensaje para la modificacion de los paramertos de configuración del SAM</comment>
+      </item>
+      <item name="mAudioSAMPosicion" type="MSG_AUDIO_SAM_POSICION">
+        <when source="cab.idMsg">M_AUDIO_SAM_POSICION</when>
+        <comment>Tipo de mensaje para enviar el resultado de la medición en una posición</comment>
+      </item>
+      <item name="mAudioSAMInterfaz" type="MSG_AUDIO_SAM_INTERFAZ">
+        <when source="cab.idMsg">M_AUDIO_SAM_INTERFAZ</when>
+        <comment>Tipo de mensaje para enviar el resultado de la medición en un interfaz</comment>
+      </item>
+      <item name="mRedSAM" type="MSG_RED_SAM">
+        <when source="cab.idMsg">M_RED_SAM</when>
+        <comment>Tipo de mensaje para enviar el resultado de las pruebas de red</comment>
+      </item>
+      <item name="mActivacionPatron" type="MSG_POSICION_SAM">
+        <when source="cab.idMsg">M_ACTIVACION_PATRON</when>
+        <comment>Tipo de mensaje para solicitar que una posición se active o desactive en modo patrón</comment>
+      </item>
+      <item name="mPosicionMedicion" type="MSG_POSICION_SAM">
+        <when source="cab.idMsg">M_POSICION_MEDICION_SAM</when>
+        <comment>Tipo de mensaje para que la posición se active o desactive en modo medición</comment>
+      </item>
+      <item name="mRespActivacionPatron" type="MSG_RESP_POSICION">
+        <when source="cab.idMsg">M_RESP_ACTIVACION_PATRON</when>
+        <comment>Tipo de mensaje para la respuesta de la peticion de activar o desactivar la posición patrón</comment>
+      </item>
+      <item name="mRespPosicionMedicion" type="MSG_RESP_POSICION">
+        <when source="cab.idMsg">M_RESP_POSICION_MEDICION_SAM</when>
+        <comment>Tipo de mensaje para la respuesta a la petición para que la posición se active o desactive en modo medición</comment>
+      </item>
+      <item name="mInterfazMedicion" type="MSG_INTERFAZ_MEDICION_SAM">
+        <when source="cab.idMsg">M_INTERFAZ_MEDICION_SAM</when>
+        <comment>Tipo de mensaje para la respuesta a la petición para que la posición se active o desactive en modo medición</comment>
+      </item>
+      <item name="mRespInterfazMedicion" type="MSG_RESP_MEDICION_SAM">
+        <when source="cab.idMsg">M_RESP_MEDICION_SAM</when>
+        <comment>Tipo de mensaje para la respuesta a la petición para que un interfaz se active o desactive en modo medición</comment>
+      </item>
+      <item name="mSetLlamadaSAM" type="MSG_SET_LLAMADA_SAM">
+        <when source="cab.idMsg">M_SET_LLAMADA_SAM</when>
+        <comment>Tipo de mensaje para la activacion de la llamada SAM para poder realizar la medición</comment>
+      </item>
+      <item name="mRespSetLlamadaSAM" type="MSG_RESP_LLAMADA_SAM">
+        <when source="cab.idMsg">M_RESP_LLAMADA_SAM</when>
+        <comment>Tipo de mensaje para la respuesta de la activacion / desactivacion de la llamada SAM</comment>
+      </item>
+      <item name="mSetBucle" type="MSG_SET_BUCLE_SAM">
+        <when source="cab.idMsg">M_SET_BUCLE_SAM</when>
+        <comment>Tipo de mensaje para la peticion de la activacion / desactivacion del bucle de la UGA.</comment>
+      </item>
+
+    </union>
+
+  </struct>
+  <!--
+  <struct name="">
+    <item name="" type="" />
+    <item name="" type="">
+      <comment></comment>
+    </item>
+    <item name="" type="">
+      <comment></comment>
+      <dimension>
+        <macro ref="" />
+      </dimension>
+    </item>
+  </struct>
+-->
+</declaration>
